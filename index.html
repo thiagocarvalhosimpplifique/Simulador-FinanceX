@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Crédito — Finance X Capital</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #0D1B2E;
+    --navy2:   #162338;
+    --navy3:   #1E2F47;
+    --gold:    #C9A84C;
+    --gold2:   #E8C97A;
+    --gold3:   #A07830;
+    --white:   #FFFFFF;
+    --off:     #F7F8FA;
+    --border:  #E2E6ED;
+    --border2: #CBD2DC;
+    --text:    #1A2535;
+    --muted:   #6B7A92;
+    --light:   #8FA0B8;
+    --green:   #1A8A50;
+    --blue:    #1E5FA8;
+    --red:     #C0392B;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--off);
+    color: var(--text);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--navy);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(13,27,46,0.18);
+  }
+
+  .topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Logo SVG inline */
+  .logo-icon {
+    width: 36px; height: 36px;
+  }
+
+  .topbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .topbar-brand span { color: var(--gold); }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .topbar-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 4px 10px;
+  }
+
+  .topbar-date {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── HERO STRIP ── */
+  .hero {
+    background: linear-gradient(105deg, var(--navy) 0%, var(--navy2) 55%, var(--navy3) 100%);
+    padding: 36px 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hero-left h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .hero-left h1 span { color: var(--gold2); }
+
+  .hero-left p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    max-width: 400px;
+  }
+
+  .hero-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 6px;
+    padding: 8px 14px;
+    text-align: center;
+  }
+
+  .pill-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+
+  .pill-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  /* ── WRAPPER ── */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold3);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sec-label::before {
+    content: '';
+    width: 18px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── CARD BASE ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(13,27,46,0.06);
+  }
+
+  /* ── CONTROLS ── */
+  .controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .ctrl {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .ctrl:hover {
+    border-color: var(--gold);
+    box-shadow: 0 2px 8px rgba(201,168,76,0.12);
+  }
+
+  .ctrl-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .ctrl-input-row {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .ctrl-prefix {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .ctrl input[type="number"],
+  .ctrl select {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    width: 100%;
+  }
+
+  .ctrl select { font-size: 13px; cursor: pointer; }
+
+  .ctrl-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .ctrl input[type="range"] {
+    width: 100%;
+    height: 4px;
+    accent-color: var(--gold);
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  .range-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--light);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-top: 5px;
+  }
+
+  /* ── SUMMARY ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .sum-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+  }
+
+  .sum-card.featured {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .sum-card.gold-card {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, #FFFBF0, #FFF8E6);
+  }
+
+  .sum-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 18px; right: 18px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    opacity: 0.3;
+  }
+
+  .sum-card.featured::after { opacity: 0.7; }
+
+  .sum-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .sum-card.featured .sum-label { color: rgba(255,255,255,0.5); }
+  .sum-card.gold-card .sum-label { color: var(--gold3); }
+
+  .sum-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+
+  .sum-card.featured .sum-val { color: var(--gold2); }
+  .sum-card.gold-card .sum-val { color: var(--navy); }
+
+  .sum-sub {
+    font-size: 10px;
+    color: var(--light);
+    margin-top: 3px;
+  }
+
+  .sum-card.featured .sum-sub { color: rgba(255,255,255,0.35); }
+
+  /* ── TERMOS ── */
+  .termos-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .termos-header {
+    background: var(--navy);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .termos-header h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .termos-header .tag-op {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 3px 8px;
+    text-transform: uppercase;
+  }
+
+  .termos-body {
+    padding: 24px;
+  }
+
+  .clausula {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .clausula:last-child { border-bottom: none; }
+
+  .clausula-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold3);
+    margin-bottom: 6px;
+  }
+
+  .clausula p {
+    font-size: 13px;
+    color: #3A4A5E;
+    line-height: 1.75;
+  }
+
+  .clausula p strong { color: var(--navy); font-weight: 600; }
+
+  /* series table */
+  .series-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 12px;
+  }
+
+  .series-table thead tr {
+    background: var(--navy);
+  }
+
+  .series-table thead th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold2);
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  .series-table tbody tr:nth-child(even) { background: var(--off); }
+
+  .series-table tbody td {
+    padding: 10px 14px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .series-table tbody td:first-child {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .series-table tbody td strong { color: var(--navy); font-weight: 600; }
+
+  /* ── CRONOGRAMA TABLE ── */
+  .table-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .table-topbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .table-topbar h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .toggle-group {
+    display: flex;
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .tog-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  .tog-btn.active {
+    background: var(--navy);
+    color: var(--gold2);
+  }
+
+  .table-scroll { overflow-x: auto; }
+
+  table.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  table.main-table thead th {
+    background: var(--off);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 11px 14px;
+    text-align: right;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+
+  table.main-table thead th:first-child { text-align: left; }
+
+  table.main-table tbody tr:hover { background: #F0F4FF; }
+
+  table.main-table tbody tr.row-amort {
+    background: #F0FBF5;
+  }
+
+  table.main-table tbody td {
+    padding: 10px 14px;
+    text-align: right;
+    border-bottom: 1px solid #F0F2F6;
+    color: var(--muted);
+    white-space: nowrap;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  table.main-table tbody td:first-child {
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  td.c-juros  { color: var(--blue); font-weight: 500; }
+  td.c-amort  { color: var(--green); font-weight: 500; }
+  td.c-total  { color: var(--navy); font-weight: 700; }
+  td.c-saldo  { color: var(--text); }
+
+  .badge-amort {
+    display: inline-block;
+    background: #E8F6EE;
+    color: var(--green);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    padding: 2px 5px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+
+  /* Table footer */
+  .table-footer {
+    background: var(--off);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    font-size: 10px;
+    color: var(--light);
+    line-height: 1.7;
+  }
+
+  /* ── ACTIONS ── */
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: var(--gold2);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: opacity .2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 1.5px solid var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  .btn-secondary:hover {
+    background: var(--navy);
+    color: var(--gold2);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer .f-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--white);
+  }
+
+  footer .f-brand span { color: var(--gold); }
+
+  footer p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  footer .f-cnpj {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .topbar, .actions { display: none; }
+    .page { padding: 0; }
+    body { background: white; }
+  }
+
+  @media (max-width: 640px) {
+    .topbar { padding: 0 16px; }
+    .hero { padding: 24px 16px; }
+    .page { padding: 20px 12px 60px; }
+    footer { padding: 20px 16px; }
+    .hero-left h1 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <!-- Finance X "X" mark in gold + navy -->
+    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="36" height="36" rx="7" fill="#C9A84C"/>
+      <text x="5" y="27" font-family="Montserrat,sans-serif" font-weight="900" font-size="24" fill="#0D1B2E">X</text>
+    </svg>
+    <div>
+      <div class="topbar-brand">Finance <span>X</span> Capital</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-tag">Simulador de Crédito</div>
+    <div class="topbar-date" id="topDate"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1>Proposta Indicativa de <span>Crédito</span></h1>
+      <p>Operação de Recebíveis — Capital de Giro Corporativo<br>Proposta com validade de <strong style="color:rgba(255,255,255,0.7)">10 dias</strong> a partir da emissão</p>
+    </div>
+    <div class="hero-pills">
+      <div class="pill">
+        <div class="pill-label">Contratos</div>
+        <div class="pill-value" id="h_contratos">R$ 14M</div>
+      </div>
+      <div class="pill">
+        <div class="pill-label">Crédito</div>
+        <div class="pill-value" id="h_credito">R$ 2,8M</div>
+      </div>
+      <div class="pill">
+        <div class="pill-label">LTV</div>
+        <div class="pill-value" id="h_ltv">20%</div>
+      </div>
+      <div class="pill">
+        <div class="pill-label">Prazo</div>
+        <div class="pill-value" id="h_prazo">48m</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- PARAMS -->
+  <div class="sec-label">Parâmetros da Operação</div>
+  <div class="controls-grid">
+
+    <div class="ctrl">
+      <div class="ctrl-label">Contratos em Carteira</div>
+      <div class="ctrl-input-row">
+        <span class="ctrl-prefix">R$</span>
+        <input type="number" id="contratos" value="14000000" step="100000" onchange="calcular()">
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <div class="ctrl-label">Crédito Solicitado</div>
+      <div class="ctrl-input-row">
+        <span class="ctrl-prefix">R$</span>
+        <input type="number" id="credito" value="2800000" step="50000" onchange="calcular()">
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <div class="ctrl-label">Prazo (meses)</div>
+      <div class="ctrl-val" id="prazoDisplay">48 meses</div>
+      <input type="range" id="prazo" min="12" max="48" step="12" value="48" oninput="upPrazo();calcular()">
+      <div class="range-row"><span>12m</span><span>24m</span><span>36m</span><span>48m</span></div>
+    </div>
+
+    <div class="ctrl">
+      <div class="ctrl-label">Taxa Mensal (% a.m.)</div>
+      <div class="ctrl-val" id="taxaDisplay">2,76%</div>
+      <input type="range" id="taxa" min="1.5" max="4.0" step="0.01" value="2.76" oninput="upTaxa();calcular()">
+      <div class="range-row"><span>1,5%</span><span>2,5%</span><span>3,5%</span><span>4%</span></div>
+    </div>
+
+    <div class="ctrl">
+      <div class="ctrl-label">Custo Inicial (IOF + TGC)</div>
+      <div class="ctrl-val" id="custoDisplay">8,38%</div>
+      <input type="range" id="custo" min="0" max="15" step="0.01" value="8.38" oninput="upCusto();calcular()">
+      <div class="range-row"><span>0%</span><span>5%</span><span>10%</span><span>15%</span></div>
+    </div>
+
+    <div class="ctrl">
+      <div class="ctrl-label">Modelo de Pagamento</div>
+      <select id="modelo" onchange="calcular()">
+        <option value="juros_amort">Juros mensais + Amort. anual</option>
+        <option value="price">Tabela PRICE</option>
+      </select>
+    </div>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="sec-label">Resumo Financeiro</div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-label">Crédito Bruto</div>
+      <div class="sum-val" id="s_bruto">—</div>
+      <div class="sum-sub">valor contratado</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">Custo Inicial</div>
+      <div class="sum-val" id="s_custo_val">—</div>
+      <div class="sum-sub" id="s_custo_sub">IOF + TGC</div>
+    </div>
+    <div class="sum-card gold-card">
+      <div class="sum-label">Crédito Líquido</div>
+      <div class="sum-val" id="s_liquido">—</div>
+      <div class="sum-sub">após descontos iniciais</div>
+    </div>
+    <div class="sum-card featured">
+      <div class="sum-label">Parcela Mensal</div>
+      <div class="sum-val" id="s_parcela">—</div>
+      <div class="sum-sub" id="s_parcela_sub">—</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">Amortização Anual</div>
+      <div class="sum-val" id="s_amort">—</div>
+      <div class="sum-sub" id="s_amort_sub">—</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">Total de Juros</div>
+      <div class="sum-val" id="s_tjuros">—</div>
+      <div class="sum-sub">no período total</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">Total Pago</div>
+      <div class="sum-val" id="s_total">—</div>
+      <div class="sum-sub">principal + juros + custos</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">LTV</div>
+      <div class="sum-val" id="s_ltv">—</div>
+      <div class="sum-sub">sobre carteira de recebíveis</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-label">CET</div>
+      <div class="sum-val" id="s_cet">—</div>
+      <div class="sum-sub" id="s_cet_sub">—</div>
+    </div>
+  </div>
+
+  <!-- TERMOS -->
+  <div class="sec-label">Cláusulas Contratuais</div>
+  <div class="termos-card">
+    <div class="termos-header">
+      <h3>Cláusula 1 — Das Características da Emissão</h3>
+      <div class="tag-op" id="tag_modelo">Juros Mensais + Amort. Anual</div>
+    </div>
+    <div class="termos-body">
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.1 — Emissão das CCBs</div>
+        <p id="c11">—</p>
+      </div>
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.2 — Liquidação do Principal</div>
+        <p id="c12">—</p>
+      </div>
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.3 — Juros Remuneratórios</div>
+        <p id="c13">—</p>
+      </div>
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.4 — Parcela Mensal de Juros</div>
+        <p id="c14">—</p>
+      </div>
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.5 — Cronograma de Séries e Vencimentos</div>
+        <p style="margin-bottom:4px; font-size:13px; color:#3A4A5E">Durante toda a vigência da operação, o CONTRATANTE pagará mensalmente a parcela de juros estipulada e realizará a amortização anual do principal conforme cronograma:</p>
+        <table class="series-table">
+          <thead>
+            <tr>
+              <th>Série</th>
+              <th>Valor do Principal</th>
+              <th>Vencimento</th>
+              <th>Parcela Mensal de Juros</th>
+              <th>Pagamento no Vencimento</th>
+            </tr>
+          </thead>
+          <tbody id="seriesBody"></tbody>
+        </table>
+      </div>
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.6 — Garantia</div>
+        <p>A operação será garantida mediante <strong>cessão fiduciária de recebíveis</strong> da carteira de contratos do CONTRATANTE, no valor estimado de <strong id="c16_garantia">—</strong>, com LTV de <strong id="c16_ltv">—</strong>, condicionada à apresentação de laudo técnico e parecer jurídico aprovados pela CONTRATADA.</p>
+      </div>
+
+      <div class="clausula">
+        <div class="clausula-num">Art. 1.7 — Validade da Proposta</div>
+        <p>Esta Proposta Indicativa tem validade de <strong>10 (dez) dias corridos</strong> a partir da data de emissão (<strong id="c17_data">—</strong>). Após esse período, será necessária nova análise de crédito. Os valores apresentados são estimativos e passíveis de alteração após emissão de laudo e parecer jurídico, não possuindo valor legal até assinatura do contrato definitivo.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CRONOGRAMA -->
+  <div class="sec-label">Cronograma de Pagamentos</div>
+  <div class="table-card">
+    <div class="table-topbar">
+      <h3>Extrato de Simulação — Operação de Recebíveis</h3>
+      <div class="toggle-group">
+        <button class="tog-btn active" onclick="setView('mensal',this)">Mensal</button>
+        <button class="tog-btn" onclick="setView('anual',this)">Anual</button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="main-table">
+        <thead id="tHead"></thead>
+        <tbody id="tBody"></tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      ⚠ Este simulador gera projeções baseadas nos dados fornecidos. Os resultados são apenas estimativas e não substituem análise formal da proposta, não possuindo valor legal. &nbsp;|&nbsp;
+      Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; Versão 2.0
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions">
+    <button class="btn-primary" onclick="window.print()">⬇ Imprimir / Salvar PDF</button>
+    <button class="btn-secondary" onclick="resetar()">↺ Redefinir Valores</button>
+  </div>
+
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-brand">Finance <span>X</span> Capital</div>
+    <p style="margin-top:4px">Soluções de Crédito, Investimento e Banco Digital</p>
+  </div>
+  <div style="text-align:right">
+    <div class="f-cnpj">CNPJ 49.185.230/0001-61</div>
+    <p style="margin-top:4px">© 2025 Finance X Group. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // ── Date display ──
+  const hoje = new Date();
+  const dtOpts = {day:'2-digit', month:'long', year:'numeric'};
+  document.getElementById('topDate').textContent = hoje.toLocaleDateString('pt-BR', dtOpts);
+  document.getElementById('c17_data').textContent = hoje.toLocaleDateString('pt-BR', dtOpts);
+
+  let viewMode = 'mensal';
+  let rowsMensal = [], rowsAnual = [];
+
+  const fmt  = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const fmtP = v => v.toFixed(2).replace('.',',') + '%';
+  const fmtM = v => v >= 1e6 ? 'R$ ' + (v/1e6).toFixed(1).replace('.',',') + 'M'
+                             : v >= 1e3 ? 'R$ ' + (v/1e3).toFixed(0) + 'k' : fmt(v);
+
+  const letras = ['A','B','C','D'];
+  const numWords = ['zero','uma','duas','três','quatro'];
+
+  function upPrazo()  { document.getElementById('prazoDisplay').textContent  = document.getElementById('prazo').value + ' meses'; }
+  function upTaxa()   { document.getElementById('taxaDisplay').textContent   = fmtP(parseFloat(document.getElementById('taxa').value)); }
+  function upCusto()  { document.getElementById('custoDisplay').textContent  = fmtP(parseFloat(document.getElementById('custo').value)); }
+
+  function resetar() {
+    document.getElementById('contratos').value = 14000000;
+    document.getElementById('credito').value   = 2800000;
+    document.getElementById('prazo').value     = 48;
+    document.getElementById('taxa').value      = 2.76;
+    document.getElementById('custo').value     = 8.38;
+    document.getElementById('modelo').value    = 'juros_amort';
+    upPrazo(); upTaxa(); upCusto(); calcular();
+  }
+
+  function setView(mode, btn) {
+    viewMode = mode;
+    document.querySelectorAll('.tog-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTable();
+  }
+
+  function calcular() {
+    const credito   = parseFloat(document.getElementById('credito').value)   || 2800000;
+    const contratos = parseFloat(document.getElementById('contratos').value) || 14000000;
+    const prazo     = parseInt(document.getElementById('prazo').value);
+    const taxa      = parseFloat(document.getElementById('taxa').value) / 100;
+    const custoPct  = parseFloat(document.getElementById('custo').value) / 100;
+    const modelo    = document.getElementById('modelo').value;
+
+    const custoVal     = credito * custoPct;
+    const creditoLiq   = credito - custoVal;
+    const ltv          = (credito / contratos * 100);
+    const numSeries    = prazo / 12;
+    const amortAnual   = credito / numSeries;
+    const jurosMensal  = credito * taxa;  // fixo sobre principal total
+    const cet          = taxa + (custoPct / prazo);
+    const cetAnual     = (Math.pow(1 + cet, 12) - 1) * 100;
+
+    // Hero pills
+    document.getElementById('h_contratos').textContent = fmtM(contratos);
+    document.getElementById('h_credito').textContent   = fmtM(credito);
+    document.getElementById('h_ltv').textContent       = ltv.toFixed(1) + '%';
+    document.getElementById('h_prazo').textContent     = prazo + 'm';
+
+    rowsMensal = []; rowsAnual = [];
+
+    if (modelo === 'juros_amort') {
+      let saldo = credito; let totalJuros = 0;
+      for (let m = 1; m <= prazo; m++) {
+        const isA  = (m % 12 === 0);
+        const amrt = isA ? amortAnual : 0;
+        const jrs  = jurosMensal;
+        const tot  = jrs + amrt;
+        totalJuros += jrs;
+        saldo -= amrt; if(saldo < 0) saldo = 0;
+        const dv = new Date(hoje); dv.setMonth(dv.getMonth() + m);
+        rowsMensal.push({ p:m, data:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:tot, s:saldo, isA });
+      }
+      for (let an = 1; an <= numSeries; an++) {
+        let sJ=0,sA=0,sT=0;
+        for (let m=(an-1)*12; m<an*12; m++) { sJ+=rowsMensal[m].j; sA+=rowsMensal[m].a; sT+=rowsMensal[m].t; }
+        rowsAnual.push({ ano:an, j:sJ, a:sA, t:sT, s:rowsMensal[an*12-1].s });
+      }
+
+      // Summary
+      set('s_bruto',    fmt(credito));
+      set('s_custo_val',fmt(custoVal));
+      set('s_custo_sub',fmtP(custoPct*100) + ' sobre crédito');
+      set('s_liquido',  fmt(creditoLiq));
+      set('s_parcela',  fmt(jurosMensal));
+      set('s_parcela_sub','juros fixos / mês');
+      set('s_amort',    fmt(amortAnual));
+      set('s_amort_sub',numSeries + ' parcelas anuais');
+      set('s_tjuros',   fmt(totalJuros));
+      set('s_total',    fmt(credito + totalJuros + custoVal));
+      set('s_ltv',      ltv.toFixed(2) + '%');
+      set('s_cet',      fmtP(cet * 100) + ' a.m.');
+      set('s_cet_sub',  fmtP(cetAnual) + ' a.a.');
+
+      // Tag
+      document.getElementById('tag_modelo').textContent = 'Juros Mensais + Amort. Anual';
+
+      // Cláusulas
+      set('c11', `Por meio do presente Contrato, a CONTRATADA compromete-se a encomendar e endossar, através de instituição financeira parceira, <strong>${numSeries} (${numWords[numSeries]}) Cédula(s) de Crédito Bancário ("CCB")</strong>, no valor de <strong>${fmt(amortAnual)}</strong> cada, totalizando <strong>${fmt(credito)}</strong>, emitidas na modalidade <strong>Capital de Giro — Operação de Recebíveis</strong>, com posterior aditivo de Termo de Garantia Colateral, para distribuição e monetização junto a agentes autônomos de investimento.`);
+
+      set('c12', `O valor total contratado será liquidado pelo CONTRATANTE em <strong>${numSeries} (${numWords[numSeries]}) parcela(s) anuais</strong> iguais de principal, no valor de <strong>${fmt(amortAnual)}</strong> cada, com vencimentos em ${Array.from({length:numSeries},(_,i)=>'<strong>'+(i+1)*12+' meses</strong>').join(', ')}, respectivamente.`);
+
+      set('c13', `Sobre o valor total da operação incidirão <strong>juros remuneratórios fixos de ${fmtP(taxa*100)} ao mês</strong>, calculados sobre o valor total contratado de <strong>${fmt(credito)}</strong>, sendo devidos mensalmente durante toda a vigência da operação, independentemente da amortização parcial do principal.`);
+
+      set('c14', `Em razão da taxa prevista no artigo anterior, o CONTRATANTE obriga-se ao pagamento de <strong>parcela mensal fixa de juros no valor de ${fmt(jurosMensal)}</strong>, com vencimento todo mês, a partir da emissão da operação, até o encerramento do contrato. <span style="color:var(--muted); font-size:12px">(Cálculo: ${fmt(credito)} × ${fmtP(taxa*100)} = ${fmt(jurosMensal)}/mês)</span>`);
+
+      // Series table
+      let html = '';
+      for (let i=0; i<numSeries; i++) {
+        html += `<tr>
+          <td><strong>${letras[i]}</strong></td>
+          <td><strong>${fmt(amortAnual)}</strong></td>
+          <td>${(i+1)*12} meses</td>
+          <td>${fmt(jurosMensal)}/mês</td>
+          <td><strong>${fmt(amortAnual)}</strong></td>
+        </tr>`;
+      }
+      document.getElementById('seriesBody').innerHTML = html;
+
+    } else {
+      // PRICE
+      const pmto = credito * (taxa * Math.pow(1+taxa,prazo)) / (Math.pow(1+taxa,prazo)-1);
+      let saldo = credito; let totalJuros = 0;
+      for (let m=1; m<=prazo; m++) {
+        const jrs  = saldo * taxa;
+        const amrt = pmto - jrs;
+        totalJuros += jrs; saldo -= amrt; if(saldo<0.01) saldo=0;
+        const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
+        rowsMensal.push({ p:m, data:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:pmto, s:saldo, isA:false });
+      }
+      for (let an=1; an<=prazo/12; an++) {
+        let sJ=0,sA=0,sT=0;
+        for(let m=(an-1)*12; m<an*12; m++){ sJ+=rowsMensal[m].j; sA+=rowsMensal[m].a; sT+=rowsMensal[m].t; }
+        rowsAnual.push({ ano:an, j:sJ, a:sA, t:sT, s:rowsMensal[an*12-1].s });
+      }
+
+      set('s_bruto',    fmt(credito));
+      set('s_custo_val',fmt(custoVal));
+      set('s_custo_sub',fmtP(custoPct*100));
+      set('s_liquido',  fmt(creditoLiq));
+      set('s_parcela',  fmt(pmto));
+      set('s_parcela_sub','parcela fixa PRICE');
+      set('s_amort',    '—');
+      set('s_amort_sub','amortização embutida');
+      set('s_tjuros',   fmt(totalJuros));
+      set('s_total',    fmt(credito + totalJuros + custoVal));
+      set('s_ltv',      ltv.toFixed(2) + '%');
+      set('s_cet',      fmtP(cet*100) + ' a.m.');
+      set('s_cet_sub',  fmtP(cetAnual) + ' a.a.');
+
+      document.getElementById('tag_modelo').textContent = 'Tabela PRICE';
+      set('c11', `Emissão via <strong>Tabela PRICE</strong> — ${prazo} parcelas mensais fixas de <strong>${fmt(pmto)}</strong>, totalizando principal de <strong>${fmt(credito)}</strong>.`);
+      set('c12', `Amortização mensal embutida na prestação fixa. O saldo devedor decresce progressivamente ao longo do prazo.`);
+      set('c13', `Juros de <strong>${fmtP(taxa*100)} a.m.</strong> incidentes sobre o saldo devedor remanescente de cada período.`);
+      set('c14', `Parcela fixa mensal de <strong>${fmt(pmto)}</strong> (PRICE).`);
+      document.getElementById('seriesBody').innerHTML = `<tr><td colspan="5" style="color:var(--muted); font-style:italic; padding:12px 14px">Modalidade PRICE — estrutura sem séries anuais de amortização.</td></tr>`;
+    }
+
+    // Guarantee
+    const garantia = contratos;
+    set('c16_garantia', fmt(garantia));
+    set('c16_ltv', ltv.toFixed(2) + '%');
+
+    renderTable();
+  }
+
+  function set(id, html) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  }
+
+  function renderTable() {
+    const thead = document.getElementById('tHead');
+    const tbody = document.getElementById('tBody');
+
+    if (viewMode === 'mensal') {
+      thead.innerHTML = `<tr>
+        <th style="text-align:left">Parcela</th>
+        <th>Data</th>
+        <th>Juros</th>
+        <th>Amortização</th>
+        <th>Total da Parcela</th>
+        <th>Saldo Devedor</th>
+      </tr>`;
+      tbody.innerHTML = rowsMensal.map(r => `
+        <tr class="${r.isA ? 'row-amort' : ''}">
+          <td>${String(r.p).padStart(3,'0')}${r.isA ? '<span class="badge-amort">AMORT</span>' : ''}</td>
+          <td style="text-align:right">${r.data}</td>
+          <td class="c-juros">${fmt(r.j)}</td>
+          <td class="c-amort">${r.a > 0 ? fmt(r.a) : '<span style="color:#CBD2DC">—</span>'}</td>
+          <td class="c-total">${fmt(r.t)}</td>
+          <td class="c-saldo">${fmt(r.s)}</td>
+        </tr>`).join('');
+    } else {
+      thead.innerHTML = `<tr>
+        <th style="text-align:left">Ano</th>
+        <th>Juros Acumulados</th>
+        <th>Amortização</th>
+        <th>Total Pago</th>
+        <th>Saldo Devedor</th>
+      </tr>`;
+      tbody.innerHTML = rowsAnual.map(r => `
+        <tr class="row-amort">
+          <td>Ano ${r.ano}</td>
+          <td class="c-juros">${fmt(r.j)}</td>
+          <td class="c-amort">${fmt(r.a)}</td>
+          <td class="c-total">${fmt(r.t)}</td>
+          <td class="c-saldo">${fmt(r.s)}</td>
+        </tr>`).join('');
+    }
+  }
+
+  // Init
+  calcular();
+</script>
+</body>
+</html>
