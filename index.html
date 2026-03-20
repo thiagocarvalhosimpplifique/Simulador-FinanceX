@@ -6,10 +6,17 @@
 <title>Simulador de Crédito — Finance X Capital</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0D1B2E;--navy2:#162338;--navy3:#1E2F47;--gold:#C9A84C;--gold2:#E8C97A;--gold3:#A07830;--white:#FFFFFF;--off:#F7F8FA;--border:#E2E6ED;--text:#1A2535;--muted:#6B7A92;--light:#8FA0B8;--green:#1A8A50;--blue:#1E5FA8;--red:#C0392B;}
+:root{
+  --navy:#0D1B2E;--navy2:#162338;--navy3:#1E2F47;
+  --gold:#C9A84C;--gold2:#E8C97A;--gold3:#A07830;
+  --off:#F7F8FA;--border:#E2E6ED;--text:#1A2535;
+  --muted:#6B7A92;--light:#8FA0B8;
+  --green:#1A8A50;--blue:#1E5FA8;--red:#C0392B;--orange:#E07820;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;font-size:14px;line-height:1.5;}
 
+/* TOPBAR */
 .topbar{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(13,27,46,.2);}
 .topbar-brand{font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;display:flex;align-items:center;gap:10px;}
 .topbar-brand em{color:var(--gold);font-style:normal;}
@@ -18,6 +25,7 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .topbar-tag{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:4px 10px;}
 .topbar-date{font-size:12px;color:rgba(255,255,255,.4);}
 
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,15,25,.8);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
 .modal{background:#fff;border-radius:16px;width:100%;max-width:460px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.3);}
 .modal-head{background:var(--navy);padding:24px 28px;}
@@ -41,6 +49,7 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .modal-alt a{color:var(--blue);cursor:pointer;font-weight:600;}
 .err-box{background:#FEF2F2;border:1px solid #FCA5A5;border-radius:6px;padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:12px;display:none;}
 
+/* IND BAR */
 .ind-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 40px;display:none;align-items:center;justify-content:space-between;}
 .ind-info{display:flex;align-items:center;gap:10px;}
 .ind-av{width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--gold2);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
@@ -49,6 +58,7 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .btn-sair{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:transparent;border:1px solid var(--border);border-radius:6px;padding:6px 12px;color:var(--muted);cursor:pointer;}
 .btn-sair:hover{border-color:var(--red);color:var(--red);}
 
+/* HERO */
 .hero{background:linear-gradient(105deg,var(--navy) 0%,var(--navy2) 55%,var(--navy3) 100%);padding:30px 40px 26px;position:relative;overflow:hidden;}
 .hero::after{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%);pointer-events:none;}
 .hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
@@ -60,10 +70,12 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .pill-l{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
 .pill-v{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#fff;}
 
+/* PAGE */
 .page{max-width:1100px;margin:0 auto;padding:26px 20px 80px;}
 .sl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold3);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
 .sl::before{content:'';width:18px;height:3px;background:var(--gold);border-radius:2px;flex-shrink:0;}
 
+/* CLIENTE */
 .cli-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
 .cli-head{background:var(--navy);padding:13px 20px;display:flex;align-items:center;gap:8px;}
 .cli-head h3{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#fff;}
@@ -73,6 +85,33 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .cf input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Open Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;}
 .cf input:focus{border-color:var(--gold);}
 
+/* SERIES SELECTOR */
+.series-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+.series-card-head{background:var(--navy);padding:13px 20px;display:flex;align-items:center;gap:8px;}
+.series-card-head h3{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#fff;}
+.series-card-body{padding:18px;}
+.series-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.serie-box{border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;position:relative;background:#fff;}
+.serie-box:hover{border-color:var(--gold);}
+.serie-box.active{border-color:var(--navy);background:var(--navy);}
+.serie-box.active .sb-letra{color:var(--gold2);}
+.serie-box.active .sb-prazo{color:var(--gold);}
+.serie-box.active .sb-desc{color:rgba(255,255,255,.5);}
+.serie-box.active .sb-ccb{color:var(--gold2);}
+.sb-letra{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;color:var(--navy);line-height:1;}
+.sb-prazo{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold3);margin-top:4px;}
+.sb-desc{font-size:10px;color:var(--muted);margin-top:2px;}
+.sb-ccb{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+.serie-box.active .sb-ccb{border-top-color:rgba(255,255,255,.15);}
+.serie-hint{font-size:11px;color:var(--muted);margin-top:12px;}
+.serie-hint strong{color:var(--navy);}
+
+/* ALERTA CCB */
+.alert-ccb{border-radius:8px;padding:10px 14px;font-size:12px;margin-top:12px;display:none;}
+.alert-ccb.warn{background:#FFF8E6;border:1px solid var(--gold);color:var(--gold3);}
+.alert-ccb.info{background:#F0F4FF;border:1px solid #B8C8F0;color:var(--blue);}
+
+/* CONTROLS */
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:13px;margin-bottom:22px;}
 .ctrl{background:#fff;border:1px solid var(--border);border-radius:10px;padding:15px 17px;transition:border-color .2s,box-shadow .2s;}
 .ctrl:hover{border-color:var(--gold);box-shadow:0 2px 8px rgba(201,168,76,.1);}
@@ -83,20 +122,10 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .ctrl-row{display:flex;align-items:baseline;gap:4px;}
 .ctrl input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;margin-top:6px;}
 .rr{display:flex;justify-content:space-between;font-size:9px;color:var(--light);font-family:'Montserrat',sans-serif;font-weight:600;margin-top:3px;}
-.ss{display:flex;gap:7px;margin-top:4px;}
-.sb{flex:1;padding:7px 3px;border:1.5px solid var(--border);border-radius:8px;background:#fff;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s;text-align:center;}
-.sb:hover{border-color:var(--gold);color:var(--navy);}
-.sb.active{background:var(--navy);border-color:var(--navy);color:var(--gold2);}
-.sb small{display:block;font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:1px;opacity:.7;}
 .ctrl select{border:none;outline:none;background:transparent;color:var(--text);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;width:100%;cursor:pointer;margin-top:4px;}
 
-/* CCB info badge */
-.ccb-info{background:linear-gradient(135deg,#FFFBF0,#FFF8E6);border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin-bottom:22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-.ccb-badge{background:var(--navy);color:var(--gold2);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;padding:6px 12px;border-radius:6px;white-space:nowrap;}
-.ccb-detail{font-size:12px;color:var(--muted);}
-.ccb-detail strong{color:var(--navy);}
-
-.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;margin-bottom:22px;}
+/* SUMMARY */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:11px;margin-bottom:22px;}
 .sc{background:#fff;border:1px solid var(--border);border-radius:10px;padding:15px 17px;position:relative;}
 .sc::after{content:'';position:absolute;bottom:0;left:17px;right:17px;height:2px;background:var(--gold);border-radius:2px;opacity:.2;}
 .sc.feat{background:var(--navy);border-color:var(--navy);}
@@ -110,6 +139,7 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .sc-sub{font-size:10px;color:var(--light);margin-top:2px;}
 .sc.feat .sc-sub{color:rgba(255,255,255,.28);}
 
+/* TERMOS */
 .tc{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
 .th{background:var(--navy);padding:13px 22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .th h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#fff;}
@@ -122,12 +152,13 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .cl p strong{color:var(--navy);font-weight:600;}
 .st{width:100%;border-collapse:collapse;margin-top:11px;font-size:12px;}
 .st thead tr{background:var(--navy);}
-.st thead th{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold2);padding:9px 12px;text-align:left;}
+.st thead th{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold2);padding:9px 14px;text-align:left;}
 .st tbody tr:nth-child(even){background:var(--off);}
-.st tbody td{padding:9px 12px;color:var(--muted);border-bottom:1px solid var(--border);}
+.st tbody td{padding:9px 14px;color:var(--muted);border-bottom:1px solid var(--border);}
 .st tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--navy);}
 .st tbody tr:last-child td{border-bottom:none;}
 
+/* CRONOGRAMA */
 .tcard{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:22px;}
 .ttop{background:#fff;border-bottom:1px solid var(--border);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 .ttop h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
@@ -137,17 +168,19 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .tscroll{overflow-x:auto;}
 table.mt{width:100%;border-collapse:collapse;font-size:12px;}
 table.mt thead th{background:var(--off);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 13px;text-align:right;border-bottom:2px solid var(--border);white-space:nowrap;}
-table.mt thead th:first-child{text-align:left;}
+table.mt thead th:first-child,table.mt thead th:nth-child(2){text-align:left;}
 table.mt tbody tr:hover{background:#F0F4FF;}
 table.mt tbody tr.ra{background:#F0FBF5;}
 table.mt tbody td{padding:9px 13px;text-align:right;border-bottom:1px solid #F0F2F6;color:var(--muted);white-space:nowrap;}
-table.mt tbody td:first-child{text-align:left;font-family:'Montserrat',sans-serif;font-weight:600;color:var(--navy);}
+table.mt tbody td:first-child,table.mt tbody td:nth-child(2){text-align:left;}
+table.mt tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:600;color:var(--navy);}
 td.cj{color:var(--blue);font-weight:500;}
 td.ca{color:var(--green);font-weight:500;}
 td.ct{color:var(--navy);font-weight:700;}
 .ba{display:inline-block;background:#E8F6EE;color:var(--green);font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:1px;border-radius:3px;padding:2px 5px;margin-left:4px;vertical-align:middle;}
-.tfoot{background:var(--off);border-top:1px solid var(--border);padding:11px 18px;font-size:10px;color:var(--light);line-height:1.7;}
+.tfoot-tb{background:var(--off);border-top:1px solid var(--border);padding:11px 18px;font-size:10px;color:var(--light);line-height:1.7;}
 
+/* SEND */
 .sp{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
 .sp h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;}
 .sp p{font-size:12px;color:var(--muted);margin-bottom:16px;}
@@ -167,7 +200,13 @@ footer{background:var(--navy);padding:26px 40px;display:flex;align-items:center;
 .fb em{color:var(--gold);font-style:normal;}
 footer p{font-size:11px;color:rgba(255,255,255,.3);}
 
-@media(max-width:640px){.topbar,.ind-bar{padding:0 14px;}.hero{padding:22px 14px;}.page{padding:18px 12px 60px;}footer{padding:18px 14px;}}
+@media(max-width:640px){
+  .topbar,.ind-bar{padding:0 14px;}
+  .hero{padding:22px 14px;}
+  .page{padding:18px 12px 60px;}
+  footer{padding:18px 14px;}
+  .series-grid{grid-template-columns:repeat(2,1fr);}
+}
 @media print{.topbar,.ind-bar,.sp,footer{display:none!important;}body{background:#fff;}.page{padding:0;}}
 </style>
 </head>
@@ -228,16 +267,17 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
       <p>Operação de Recebíveis — Capital de Giro Corporativo &nbsp;|&nbsp; Validade: 10 dias</p>
     </div>
     <div class="pills">
-      <div class="pill"><div class="pill-l">Contratos</div><div class="pill-v" id="hC">—</div></div>
-      <div class="pill"><div class="pill-l">Crédito</div><div class="pill-v" id="hCr">—</div></div>
+      <div class="pill"><div class="pill-l">Créd./Série</div><div class="pill-v" id="hCr">—</div></div>
+      <div class="pill"><div class="pill-l">Total Op.</div><div class="pill-v" id="hTot">—</div></div>
       <div class="pill"><div class="pill-l">Total CCBs</div><div class="pill-v" id="hCCB">—</div></div>
-      <div class="pill"><div class="pill-l">Séries</div><div class="pill-v" id="hS">—</div></div>
+      <div class="pill"><div class="pill-l">Prazo</div><div class="pill-v" id="hPrazo">—</div></div>
     </div>
   </div>
 </div>
 
 <div class="page">
 
+  <!-- CLIENTE -->
   <div class="sl">Dados do Cliente</div>
   <div class="cli-card">
     <div class="cli-head"><div class="cli-dot"></div><h3>Identificação do Proponente</h3></div>
@@ -249,30 +289,57 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
     </div>
   </div>
 
-  <div class="sl">Parâmetros da Operação</div>
-
-  <!-- CCB info dinâmico -->
-  <div class="ccb-info" id="ccbInfo">
-    <div class="ccb-badge" id="ccbBadge">— CCBs</div>
-    <div class="ccb-detail" id="ccbDetail">—</div>
+  <!-- SÉRIES -->
+  <div class="sl">Séries da Operação</div>
+  <div class="series-card">
+    <div class="series-card-head"><div class="cli-dot"></div><h3>Selecione as séries — sempre sequenciais a partir de A</h3></div>
+    <div class="series-card-body">
+      <div class="series-grid">
+        <div class="serie-box active" id="boxA" onclick="toggleSerie('A')">
+          <div class="sb-letra">A</div>
+          <div class="sb-prazo">12 meses</div>
+          <div class="sb-desc">1º vencimento</div>
+          <div class="sb-ccb" id="ccbA">— CCBs</div>
+        </div>
+        <div class="serie-box" id="boxB" onclick="toggleSerie('B')">
+          <div class="sb-letra">B</div>
+          <div class="sb-prazo">24 meses</div>
+          <div class="sb-desc">2º vencimento</div>
+          <div class="sb-ccb" id="ccbB">— CCBs</div>
+        </div>
+        <div class="serie-box" id="boxC" onclick="toggleSerie('C')">
+          <div class="sb-letra">C</div>
+          <div class="sb-prazo">36 meses</div>
+          <div class="sb-desc">3º vencimento</div>
+          <div class="sb-ccb" id="ccbC">— CCBs</div>
+        </div>
+        <div class="serie-box" id="boxD" onclick="toggleSerie('D')">
+          <div class="sb-letra">D</div>
+          <div class="sb-prazo">48 meses</div>
+          <div class="sb-desc">4º vencimento</div>
+          <div class="sb-ccb" id="ccbD">— CCBs</div>
+        </div>
+      </div>
+      <div class="serie-hint" id="serieHint">—</div>
+      <div class="alert-ccb" id="alertCCB"></div>
+    </div>
   </div>
 
+  <!-- PARAMS -->
+  <div class="sl">Parâmetros Financeiros</div>
   <div class="cg">
     <div class="ctrl">
+      <div class="ctrl-lbl">Crédito por Série</div>
+      <div class="ctrl-row"><span class="ctrl-pre">R$</span>
+        <input class="ctrl-val edit" id="iCre" type="text" value="1.000.000,00"
+          onblur="pi();calc()" onkeydown="if(event.key==='Enter'){pi();calc();}">
+      </div>
+    </div>
+    <div class="ctrl">
       <div class="ctrl-lbl">Contratos em Carteira</div>
-      <div class="ctrl-row"><span class="ctrl-pre">R$</span><input class="ctrl-val edit" id="iCon" type="text" value="14.000.000,00" onblur="pi('con');calc()" onkeydown="if(event.key==='Enter'){pi('con');calc();}"></div>
-    </div>
-    <div class="ctrl">
-      <div class="ctrl-lbl">Crédito Solicitado</div>
-      <div class="ctrl-row"><span class="ctrl-pre">R$</span><input class="ctrl-val edit" id="iCre" type="text" value="2.800.000,00" onblur="pi('cre');calc()" onkeydown="if(event.key==='Enter'){pi('cre');calc();}"></div>
-    </div>
-    <div class="ctrl">
-      <div class="ctrl-lbl">Número de Séries</div>
-      <div class="ss">
-        <button class="sb" onclick="setSer(1,this)">1<small>série</small></button>
-        <button class="sb" onclick="setSer(2,this)">2<small>séries</small></button>
-        <button class="sb" onclick="setSer(3,this)">3<small>séries</small></button>
-        <button class="sb active" onclick="setSer(4,this)">4<small>séries</small></button>
+      <div class="ctrl-row"><span class="ctrl-pre">R$</span>
+        <input class="ctrl-val edit" id="iCon" type="text" value="14.000.000,00"
+          onblur="piCon();calc()" onkeydown="if(event.key==='Enter'){piCon();calc();}">
       </div>
     </div>
     <div class="ctrl">
@@ -287,33 +354,28 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
       <input type="range" id="rCu" min="0" max="15" step="0.01" value="8.38" oninput="uCu();calc()">
       <div class="rr"><span>0%</span><span>5%</span><span>10%</span><span>15%</span></div>
     </div>
-    <div class="ctrl">
-      <div class="ctrl-lbl">Modelo de Pagamento</div>
-      <select id="mdl" onchange="calc()">
-        <option value="ja">Juros mensais + Amort. anual</option>
-        <option value="pr">Tabela PRICE</option>
-      </select>
-    </div>
   </div>
 
+  <!-- RESUMO -->
   <div class="sl">Resumo Financeiro</div>
   <div class="sg">
-    <div class="sc"><div class="sc-lbl">Crédito Bruto</div><div class="sc-val" id="sBr">—</div><div class="sc-sub">valor contratado</div></div>
-    <div class="sc"><div class="sc-lbl">Custo Inicial</div><div class="sc-val" id="sCu">—</div><div class="sc-sub" id="sCuS">IOF + TGC</div></div>
-    <div class="sc gld"><div class="sc-lbl">Crédito Líquido</div><div class="sc-val" id="sLi">—</div><div class="sc-sub">após descontos</div></div>
-    <div class="sc feat"><div class="sc-lbl">Parcela Mensal Juros</div><div class="sc-val" id="sPa">—</div><div class="sc-sub" id="sPaS">—</div></div>
-    <div class="sc"><div class="sc-lbl">Total de CCBs</div><div class="sc-val" id="sCb">—</div><div class="sc-sub" id="sCbS">R$ 100.000,00 cada</div></div>
-    <div class="sc"><div class="sc-lbl">CCBs por Série</div><div class="sc-val" id="sCs">—</div><div class="sc-sub" id="sCsS">—</div></div>
-    <div class="sc"><div class="sc-lbl">Amortização por Série</div><div class="sc-val" id="sAm">—</div><div class="sc-sub" id="sAmS">—</div></div>
+    <div class="sc"><div class="sc-lbl">Crédito por Série</div><div class="sc-val" id="sCrS">—</div><div class="sc-sub" id="sCrSSub">—</div></div>
+    <div class="sc gld"><div class="sc-lbl">Total da Operação</div><div class="sc-val" id="sTotOp">—</div><div class="sc-sub" id="sTotOpSub">—</div></div>
+    <div class="sc"><div class="sc-lbl">Custo Inicial</div><div class="sc-val" id="sCuV">—</div><div class="sc-sub" id="sCuS">—</div></div>
+    <div class="sc gld"><div class="sc-lbl">Líquido Total</div><div class="sc-val" id="sLi">—</div><div class="sc-sub">após descontos</div></div>
+    <div class="sc feat"><div class="sc-lbl">Juros 1º Mês</div><div class="sc-val" id="sPa">—</div><div class="sc-sub">decresce com amortizações</div></div>
+    <div class="sc"><div class="sc-lbl">CCBs por Série</div><div class="sc-val" id="sCCBSer">—</div><div class="sc-sub">R$ 100.000,00 cada</div></div>
+    <div class="sc"><div class="sc-lbl">Total de CCBs</div><div class="sc-val" id="sCCBTot">—</div><div class="sc-sub" id="sCCBTotSub">—</div></div>
     <div class="sc"><div class="sc-lbl">Total de Juros</div><div class="sc-val" id="sTj">—</div><div class="sc-sub">no período</div></div>
     <div class="sc"><div class="sc-lbl">Total Pago</div><div class="sc-val" id="sTp">—</div><div class="sc-sub">principal + juros + custos</div></div>
     <div class="sc"><div class="sc-lbl">LTV</div><div class="sc-val" id="sLv">—</div><div class="sc-sub">sobre carteira</div></div>
     <div class="sc"><div class="sc-lbl">CET</div><div class="sc-val" id="sCe">—</div><div class="sc-sub" id="sCeS">—</div></div>
   </div>
 
+  <!-- TERMOS -->
   <div class="sl">Cláusulas Contratuais</div>
   <div class="tc">
-    <div class="th"><h3>Cláusula 1 — Das Características da Emissão</h3><div class="tag-op" id="tagM">Juros Mensais + Amort. Anual</div></div>
+    <div class="th"><h3>Cláusula 1 — Das Características da Emissão</h3><div class="tag-op" id="tagM">Juros Mensais + Amort. por Série</div></div>
     <div class="tb-body">
       <div class="cl"><div class="cl-n">Art. 1.1 — Emissão das CCBs</div><p id="c1">—</p></div>
       <div class="cl"><div class="cl-n">Art. 1.2 — Liquidação do Principal</div><p id="c2">—</p></div>
@@ -321,35 +383,38 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
       <div class="cl"><div class="cl-n">Art. 1.4 — Parcela Mensal de Juros</div><p id="c4">—</p></div>
       <div class="cl">
         <div class="cl-n">Art. 1.5 — Cronograma de Séries e Vencimentos</div>
-        <p style="margin-bottom:8px;font-size:13px;color:#3A4A5E">O CONTRATANTE pagará mensalmente a parcela de juros e realizará a amortização anual conforme cronograma:</p>
+        <p style="margin-bottom:8px;font-size:13px;color:#3A4A5E">O CONTRATANTE pagará juros mensalmente e amortizará o principal de cada série no respectivo vencimento:</p>
         <table class="st">
-          <thead><tr><th>Série</th><th>Nº de CCBs</th><th>Valor por CCB</th><th>Total da Série</th><th>Vencimento</th><th>Juros/mês</th><th>Pgto no Vencimento</th></tr></thead>
+          <thead><tr><th>Série</th><th>Nº CCBs</th><th>Valor/CCB</th><th>Total Série</th><th>Vencimento</th><th>Juros 1º mês*</th><th>Amort. no Venc.</th></tr></thead>
           <tbody id="sTb"></tbody>
-          <tfoot id="sTf" style="background:var(--navy)"></tfoot>
+          <tfoot id="sTf"></tfoot>
         </table>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px">*Juros calculados sobre saldo devedor remanescente — decrescem a cada amortização de série.</p>
       </div>
       <div class="cl"><div class="cl-n">Art. 1.6 — Garantia</div><p>Garantida por <strong>cessão fiduciária de recebíveis</strong> no valor estimado de <strong id="c6g">—</strong>, com LTV de <strong id="c6l">—</strong>, condicionada à apresentação de laudo técnico e parecer jurídico aprovados pela CONTRATADA.</p></div>
       <div class="cl"><div class="cl-n">Art. 1.7 — Validade da Proposta</div><p>Validade de <strong>10 (dez) dias corridos</strong> a partir de <strong id="c7d">—</strong>. Valores estimativos sem valor legal até assinatura do contrato definitivo.</p></div>
     </div>
   </div>
 
+  <!-- CRONOGRAMA -->
   <div class="sl">Cronograma de Pagamentos</div>
   <div class="tcard">
     <div class="ttop">
       <h3>Extrato de Simulação — Operação de Recebíveis</h3>
       <div class="tg">
         <button class="tb2 active" onclick="setVw('m',this)">Mensal</button>
-        <button class="tb2" onclick="setVw('a',this)">Anual / Série</button>
+        <button class="tb2" onclick="setVw('a',this)">Por Série</button>
       </div>
     </div>
     <div class="tscroll"><table class="mt"><thead id="mTh"></thead><tbody id="mTb"></tbody></table></div>
-    <div class="tfoot">⚠ Resultados são estimativas sem valor legal. &nbsp;|&nbsp; Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; v3.1</div>
+    <div class="tfoot-tb">⚠ Resultados são estimativas sem valor legal. &nbsp;|&nbsp; Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; v5.0</div>
   </div>
 
+  <!-- ENVIAR -->
   <div class="sl">Enviar Simulação</div>
   <div class="sp">
     <h3>📤 Registrar e Enviar esta Simulação</h3>
-    <p>A simulação será registrada com sua tag de indicador, salva na planilha de controle e enviada por e-mail pelo Gmail.</p>
+    <p>A simulação será registrada com sua tag de indicador, salva na planilha de controle e enviada por e-mail.</p>
     <div class="sa">
       <button class="btn-s p" id="btnEnv" onclick="enviar()">✉ Enviar Simulação</button>
       <button class="btn-s o" onclick="window.print()">🖨 Imprimir / PDF</button>
@@ -366,27 +431,37 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
 </footer>
 
 <script>
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 //  CONFIGURAÇÃO
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOkaYjHPSFu9NgY_-H7Ves2A7EN2Dg5mBqFrSqgeZPDp_Lv9lhDm5R_9yzM7u7RIFz/exec';
-const CCB_VALOR = 100000; // R$ 100.000,00 fixo por CCB
+const CCB_IDEAL = 100000; // R$ 100.000 ideal por CCB
 
-// ════════════════════════════════════
+// Séries fixas: A=12m, B=24m, C=36m, D=48m — sempre sequenciais
+const SERIES_DEF = [
+  { letra:'A', meses:12 },
+  { letra:'B', meses:24 },
+  { letra:'C', meses:36 },
+  { letra:'D', meses:48 },
+];
+
+// ══════════════════════════════════════════
 //  ESTADO
-// ════════════════════════════════════
-let ind = null, nSer = 4, vwMode = 'm';
-let rowsM = [], rowsA = [];
-let V = { con: 14000000, cre: 2800000 };
+// ══════════════════════════════════════════
+let ind     = null;
+let vwMode  = 'm';
+let rowsM   = [], rowsA = [];
+let nSer    = 1;       // quantas séries ativas (sempre A, A+B, A+B+C, A+B+C+D)
+let V       = { cre: 1000000, con: 14000000 };
 
 const hoje = new Date();
 const dtF  = {day:'2-digit', month:'long', year:'numeric'};
 g('tDate').textContent = hoje.toLocaleDateString('pt-BR', dtF);
 g('c7d').textContent   = hoje.toLocaleDateString('pt-BR', dtF);
 
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 //  HELPERS
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 function g(id){ return document.getElementById(id); }
 function s(id,h){ const e=g(id); if(e) e.innerHTML=h; }
 const fmt  = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
@@ -394,7 +469,6 @@ const fmtP = v => v.toFixed(2).replace('.',',')+' %';
 const fmtS = v => v>=1e6 ? 'R$ '+(v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'M' : v>=1e3 ? 'R$ '+(v/1e3).toFixed(0)+'k' : fmt(v);
 const fmtI = v => v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const parseR = str => parseFloat(str.replace(/\./g,'').replace(',','.'))||0;
-const letras = ['A','B','C','D'];
 
 function mascDoc(el){
   let v=el.value.replace(/\D/g,'');
@@ -403,9 +477,37 @@ function mascDoc(el){
   el.value=v;
 }
 
-// ════════════════════════════════════
+// ══════════════════════════════════════════
+//  SELEÇÃO DE SÉRIES
+//  Sempre sequencial: clicar em B ativa A+B,
+//  clicar em A quando A é única desativa tudo
+//  (mínimo sempre 1 série — A)
+// ══════════════════════════════════════════
+function toggleSerie(letra){
+  const idx = SERIES_DEF.findIndex(s=>s.letra===letra);
+  // Se clicou na série além da última ativa → ativa até ela
+  // Se clicou na última série ativa → desativa ela (mínimo 1)
+  if(idx+1 > nSer){
+    nSer = idx+1;
+  } else if(idx+1 === nSer && nSer > 1){
+    nSer = idx; // desativa essa série (volta para anterior)
+  }
+  // Sempre garante mínimo 1
+  if(nSer < 1) nSer = 1;
+  atualizarBoxes();
+  calc();
+}
+
+function atualizarBoxes(){
+  SERIES_DEF.forEach((ser,i)=>{
+    const box = g('box'+ser.letra);
+    box.classList.toggle('active', i < nSer);
+  });
+}
+
+// ══════════════════════════════════════════
 //  AUTH
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 function swTab(t,btn){
   g('tLogin').style.display = t==='login'?'block':'none';
   g('tCad').style.display   = t==='cad'?'block':'none';
@@ -419,11 +521,11 @@ function doCad(){
   if(!nome||!wh||!em){ g('errCad').style.display='block'; return; }
   g('errCad').style.display='none';
   const cod=gerarCod();
-  const novoInd={nome,whats:wh,email:em,doc:g('cDoc').value.trim(),cidade:g('cCidade').value.trim(),codigo:cod,data:hoje.toLocaleDateString('pt-BR')};
-  salvarLocal(novoInd);
-  enviarParaSheets({tipo:'novo_indicador',...novoInd});
-  entrar(novoInd);
-  alert('✅ Cadastro realizado!\n\nSeu código de indicador:\n\n' + cod + '\n\nGuarde este código para próximos acessos.');
+  const ni={nome,whats:wh,email:em,doc:g('cDoc').value.trim(),cidade:g('cCidade').value.trim(),codigo:cod,data:hoje.toLocaleDateString('pt-BR')};
+  salvarLocal(ni);
+  enviarParaSheets({tipo:'novo_indicador',...ni});
+  entrar(ni);
+  alert('✅ Cadastro realizado!\n\nSeu código de indicador:\n\n'+cod+'\n\nGuarde este código para próximos acessos.');
 }
 
 function doLogin(){
@@ -453,186 +555,186 @@ function entrar(i){
 
 function sair(){ if(confirm('Deseja sair?')){ ind=null; g('modalOv').style.display='flex'; g('indBar').style.display='none'; } }
 
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 //  CONTROLES
-// ════════════════════════════════════
-function pi(f){ const id=f==='con'?'iCon':'iCre'; V[f]=parseR(g(id).value); g(id).value=fmtI(V[f]); }
+// ══════════════════════════════════════════
+function pi(){ V.cre=parseR(g('iCre').value); g('iCre').value=fmtI(V.cre); }
+function piCon(){ V.con=parseR(g('iCon').value); g('iCon').value=fmtI(V.con); }
 function uTx(){ g('dTx').textContent=fmtP(parseFloat(g('rTx').value)); }
 function uCu(){ g('dCu').textContent=fmtP(parseFloat(g('rCu').value)); }
-function setSer(n,btn){ nSer=n; document.querySelectorAll('.sb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calc(); }
 function setVw(m,btn){ vwMode=m; document.querySelectorAll('.tb2').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderT(); }
 
 function resetar(){
-  V={con:14000000,cre:2800000};
-  g('iCon').value=fmtI(14000000); g('iCre').value=fmtI(2800000);
-  g('rTx').value=2.76; g('rCu').value=8.38; g('mdl').value='ja';
+  V={cre:1000000,con:14000000};
+  g('iCre').value=fmtI(1000000); g('iCon').value=fmtI(14000000);
+  g('rTx').value=2.76; g('rCu').value=8.38;
   ['cliNm','cliDoc','cliSeg','cliCid'].forEach(id=>g(id).value='');
-  nSer=4; document.querySelectorAll('.sb').forEach((b,i)=>b.classList.toggle('active',i===3));
+  nSer=1; atualizarBoxes();
   uTx(); uCu(); calc();
   g('ssMsg').style.display='none';
 }
 
-// ════════════════════════════════════
-//  LÓGICA CCBs
-//  Cada CCB = R$ 100.000,00
-//  Total CCBs = crédito ÷ 100k
-//  Distribuição: igualmente entre séries
-//  Resto vai para a última série
-// ════════════════════════════════════
-function calcCCBs(cre, nSer){
-  const total = Math.round(cre / CCB_VALOR);
-  const base  = Math.floor(total / nSer);
-  const resto = total - (base * nSer);
-  // Monta array com CCBs por série
-  const porSerie = Array.from({length:nSer}, (_,i) => i===nSer-1 ? base+resto : base);
-  const valSerie = porSerie.map(n => n * CCB_VALOR);
-  return {total, base, resto, porSerie, valSerie};
+// ══════════════════════════════════════════
+//  CÁLCULO DE CCBs
+//
+//  Ideal: múltiplos de R$100k → CCBs de R$100k
+//  Se não for múltiplo: CCBs de valor menor (não ideal)
+//  Quantidade de CCBs = arredonda para inteiro mais próximo
+// ══════════════════════════════════════════
+function calcCCBs(crePorSerie){
+  const nCCB     = Math.round(crePorSerie / CCB_IDEAL);
+  const nCCBReal = Math.max(1, nCCB);
+  const valorCCB = crePorSerie / nCCBReal;
+  const isIdeal  = Math.abs(valorCCB - CCB_IDEAL) < 0.01;
+  return { nCCB: nCCBReal, valorCCB, isIdeal };
 }
 
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 //  CÁLCULO PRINCIPAL
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 function calc(){
-  const cre = V.cre || 2800000;
-  const con = V.con || 14000000;
-  const tx  = parseFloat(g('rTx').value)/100;
-  const cu  = parseFloat(g('rCu').value)/100;
-  const mdl = g('mdl').value;
-  const prazo = nSer * 12;
+  const crePorSerie = V.cre || 1000000;
+  const con         = V.con || 14000000;
+  const tx          = parseFloat(g('rTx').value)/100;
+  const cu          = parseFloat(g('rCu').value)/100;
+  const prazo       = SERIES_DEF[nSer-1].meses; // prazo = vencimento da última série
+  const seriesAtivas= SERIES_DEF.slice(0, nSer);
 
-  const cuV = cre*cu, liq = cre-cuV, ltv = cre/con*100;
-  const jm  = cre*tx;
-  const cet = tx+(cu/prazo), cetA=(Math.pow(1+cet,12)-1)*100;
-  const ccb = calcCCBs(cre, nSer);
+  // Totais
+  const totalOp  = crePorSerie * nSer;
+  const cuTot    = totalOp * cu;
+  const liqTot   = totalOp - cuTot;
+  const ltv      = totalOp / con * 100;
+  const cet      = tx + (cu / prazo);
+  const cetA     = (Math.pow(1+cet,12)-1)*100;
+
+  // CCBs
+  const ccb = calcCCBs(crePorSerie);
+  const totalCCBs = ccb.nCCB * nSer;
+
+  // Atualiza badges nas series boxes
+  SERIES_DEF.forEach((ser,i)=>{
+    const el = g('ccb'+ser.letra);
+    if(i < nSer) el.textContent = ccb.nCCB+' CCB'+(ccb.nCCB>1?'s':'');
+    else el.textContent = '—';
+  });
+
+  // Alerta CCB
+  const alertEl = g('alertCCB');
+  if(!ccb.isIdeal){
+    alertEl.className='alert-ccb warn';
+    alertEl.style.display='block';
+    alertEl.innerHTML=`⚠ <strong>CCBs menores que o ideal:</strong> ${crePorSerie > CCB_IDEAL
+      ? fmt(crePorSerie)+' não é múltiplo de R$ 100.000,00 — cada CCB terá '+fmt(ccb.valorCCB)
+      : 'Valor por série menor que R$ 100.000,00 — será emitida 1 CCB de '+fmt(crePorSerie)}.`;
+  } else {
+    alertEl.style.display='none';
+  }
+
+  // Hint
+  const letrasAtivas = seriesAtivas.map(s=>s.letra).join(' + ');
+  g('serieHint').innerHTML = `<strong>${nSer} série${nSer>1?'s':''} ativa${nSer>1?'s':''}</strong>: ${letrasAtivas} &nbsp;·&nbsp; `+
+    `<strong>${ccb.nCCB}</strong> CCB${ccb.nCCB>1?'s':''} de <strong>${fmt(ccb.valorCCB)}</strong> por série &nbsp;·&nbsp; `+
+    `Total: <strong>${totalCCBs} CCBs</strong> &nbsp;·&nbsp; Total da operação: <strong>${fmt(totalOp)}</strong>`;
 
   // Hero pills
-  s('hC',   fmtS(con));
-  s('hCr',  fmtS(cre));
-  s('hCCB', ccb.total+' CCBs');
-  s('hS',   nSer+(nSer===1?' série':' séries'));
-
-  // CCB info badge
-  s('ccbBadge', ccb.total+' CCBs emitidas');
-  s('ccbDetail', `<strong>${fmt(CCB_VALOR)}</strong> por CCB &nbsp;·&nbsp; <strong>${ccb.base}</strong> CCBs por série${ccb.resto>0?' (última série: <strong>'+(ccb.base+ccb.resto)+'</strong> CCBs)':''} &nbsp;·&nbsp; Total: <strong>${fmt(cre)}</strong>`);
+  s('hCr',    fmtS(crePorSerie));
+  s('hTot',   fmtS(totalOp));
+  s('hCCB',   totalCCBs+' CCBs');
+  s('hPrazo', prazo+'m');
 
   rowsM=[]; rowsA=[];
 
-  if(mdl==='ja'){
-    let sal=cre, tj=0;
-    for(let m=1;m<=prazo;m++){
-      const serIdx = Math.floor((m-1)/12); // índice da série (0-based)
-      const isA = (m%12===0);
-      const amrt = isA ? ccb.valSerie[serIdx] : 0;
-      tj += jm;
-      sal -= amrt; if(sal<0) sal=0;
-      const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
-      rowsM.push({p:m, dt:dv.toLocaleDateString('pt-BR'), j:jm, a:amrt, t:jm+amrt, s:sal, isA, serIdx});
-    }
-    for(let an=1;an<=nSer;an++){
-      let sJ=0,sA=0,sT=0;
-      for(let m=(an-1)*12;m<an*12;m++){sJ+=rowsM[m].j;sA+=rowsM[m].a;sT+=rowsM[m].t;}
-      rowsA.push({an, j:sJ, a:sA, t:sT, s:rowsM[an*12-1].s, nCCB:ccb.porSerie[an-1], vSerie:ccb.valSerie[an-1]});
-    }
-
-    // Summary
-    s('sBr',  fmt(cre));
-    s('sCu',  fmt(cuV)); s('sCuS', fmtP(cu*100)+' sobre o crédito');
-    s('sLi',  fmt(liq));
-    s('sPa',  fmt(jm));  s('sPaS','juros fixos mensais');
-    s('sCb',  ccb.total+' CCBs'); s('sCbS','R$ 100.000,00 cada');
-    s('sCs',  ccb.base+(ccb.resto>0?' a '+(ccb.base+ccb.resto):'')); s('sCsS','CCBs por série');
-    s('sAm',  fmt(ccb.base*CCB_VALOR)); s('sAmS',ccb.base+' CCBs × '+fmt(CCB_VALOR));
-    s('sTj',  fmt(tj));
-    s('sTp',  fmt(cre+tj+cuV));
-    s('sLv',  ltv.toFixed(2)+'%');
-    s('sCe',  fmtP(cet*100)+' a.m.'); s('sCeS', fmtP(cetA)+' a.a.');
-    s('tagM','Juros Mensais + Amort. Anual');
-
-    // Cláusulas
-    s('c1',`A CONTRATADA compromete-se a encomendar e endossar, através de instituição financeira parceira, <strong>${ccb.total} (${ccb.total}) Cédulas de Crédito Bancário ("CCB")</strong>, individuais, no valor de <strong>${fmt(CCB_VALOR)}</strong> cada, totalizando <strong>${fmt(cre)}</strong>, emitidas na modalidade <strong>Capital de Giro — Operação de Recebíveis</strong>, distribuídas em <strong>${nSer} série${nSer>1?'s':''}</strong> conforme cronograma abaixo.`);
-    s('c2',`O valor total contratado será liquidado em <strong>${nSer} parcela${nSer>1?'s':''} anuais</strong> de principal, sendo <strong>${ccb.base} CCBs (${fmt(ccb.base*CCB_VALOR)})</strong> por série${ccb.resto>0?', exceto a última série com <strong>'+(ccb.base+ccb.resto)+' CCBs ('+fmt(ccb.valSerie[nSer-1])+')</strong>':''}, com vencimentos em ${Array.from({length:nSer},(_,i)=>'<strong>'+(i+1)*12+' meses</strong>').join(', ')}.`);
-    s('c3',`Sobre o valor total da operação incidirão <strong>juros remuneratórios fixos de ${fmtP(tx*100)} ao mês</strong> (${fmtP(tx*12*100)} a.a.) calculados sobre o valor total contratado de <strong>${fmt(cre)}</strong>, devidos mensalmente durante toda a vigência, independentemente da amortização parcial do principal.`);
-    s('c4',`O CONTRATANTE obriga-se ao pagamento de <strong>parcela mensal fixa de juros de ${fmt(jm)}</strong> com vencimento todo mês até o encerramento do contrato. <span style="color:var(--muted);font-size:11px">(${fmt(cre)} × ${fmtP(tx*100)} = ${fmt(jm)}/mês)</span>`);
-
-    // Tabela de séries
-    let h='';
-    for(let i=0;i<nSer;i++){
-      h+=`<tr>
-        <td><strong>${letras[i]}</strong></td>
-        <td><strong>${ccb.porSerie[i]}</strong> CCBs</td>
-        <td>${fmt(CCB_VALOR)}</td>
-        <td><strong>${fmt(ccb.valSerie[i])}</strong></td>
-        <td>${(i+1)*12} meses</td>
-        <td>${fmt(jm)}/mês</td>
-        <td><strong>${fmt(ccb.valSerie[i])}</strong></td>
-      </tr>`;
-    }
-    // Linha de total
-    s('sTb', h);
-    s('sTf', `<tr style="background:var(--navy)">
-      <td style="font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold2);padding:9px 12px">TOTAL</td>
-      <td style="color:var(--gold2);padding:9px 12px;font-weight:700">${ccb.total} CCBs</td>
-      <td style="color:rgba(255,255,255,.4);padding:9px 12px">${fmt(CCB_VALOR)}</td>
-      <td style="color:var(--gold2);padding:9px 12px;font-weight:700">${fmt(cre)}</td>
-      <td style="color:rgba(255,255,255,.4);padding:9px 12px">—</td>
-      <td style="color:var(--gold2);padding:9px 12px;font-weight:700">${fmt(jm)}/mês</td>
-      <td style="color:var(--gold2);padding:9px 12px;font-weight:700">${fmt(cre)}</td>
-    </tr>`);
-
-  } else {
-    // PRICE
-    const pmto = cre*(tx*Math.pow(1+tx,prazo))/(Math.pow(1+tx,prazo)-1);
-    let sal=cre, tj=0;
-    for(let m=1;m<=prazo;m++){
-      const jrs=sal*tx, amrt=pmto-jrs;
-      tj+=jrs; sal-=amrt; if(sal<0.01)sal=0;
-      const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
-      rowsM.push({p:m, dt:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:pmto, s:sal, isA:false});
-    }
-    for(let an=1;an<=nSer;an++){
-      let sJ=0,sA=0,sT=0;
-      for(let m=(an-1)*12;m<an*12;m++){sJ+=rowsM[m].j;sA+=rowsM[m].a;sT+=rowsM[m].t;}
-      rowsA.push({an, j:sJ, a:sA, t:sT, s:rowsM[an*12-1].s});
-    }
-    s('sBr',fmt(cre)); s('sCu',fmt(cuV)); s('sCuS',fmtP(cu*100));
-    s('sLi',fmt(liq)); s('sPa',fmt(pmto)); s('sPaS','parcela fixa PRICE');
-    s('sCb',ccb.total+' CCBs'); s('sCbS','R$ 100.000,00 cada');
-    s('sCs','—'); s('sCsS','amortização embutida');
-    s('sAm','—'); s('sAmS','embutida na parcela');
-    s('sTj',fmt(tj)); s('sTp',fmt(cre+tj+cuV));
-    s('sLv',ltv.toFixed(2)+'%'); s('sCe',fmtP(cet*100)+' a.m.'); s('sCeS',fmtP(cetA)+' a.a.');
-    s('tagM','Tabela PRICE');
-    s('c1',`Emissão de <strong>${ccb.total} CCBs</strong> no valor de <strong>${fmt(CCB_VALOR)}</strong> cada, totalizando <strong>${fmt(cre)}</strong>, via <strong>Tabela PRICE</strong> — ${prazo} parcelas fixas de <strong>${fmt(pmto)}</strong>.`);
-    s('c2','Amortização mensal embutida na prestação fixa. Saldo devedor decresce progressivamente.');
-    s('c3',`Juros de <strong>${fmtP(tx*100)} a.m.</strong> sobre o saldo devedor remanescente de cada período.`);
-    s('c4',`Parcela fixa: <strong>${fmt(pmto)}</strong>/mês.`);
-    s('sTb',`<tr><td colspan="7" style="color:var(--muted);font-style:italic;padding:12px">Modalidade PRICE — amortização embutida na parcela mensal.</td></tr>`);
-    s('sTf','');
+  // Juros sobre saldo decrescente — amortiza no vencimento de cada série
+  let sal=totalOp, tj=0;
+  for(let m=1;m<=prazo;m++){
+    const jrs  = sal * tx;
+    const serIdx = Math.floor((m-1)/12); // 0=série A, 1=série B...
+    const isA  = (m % 12 === 0);
+    const amrt = isA ? crePorSerie : 0;
+    tj += jrs;
+    sal -= amrt; if(sal<0) sal=0;
+    const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
+    rowsM.push({p:m, dt:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:jrs+amrt, s:sal, isA, serIdx});
   }
+
+  for(let an=0;an<nSer;an++){
+    let sJ=0,sA=0,sT=0;
+    for(let m=an*12;m<(an+1)*12;m++){
+      if(rowsM[m]){ sJ+=rowsM[m].j; sA+=rowsM[m].a; sT+=rowsM[m].t; }
+    }
+    rowsA.push({an, letra:SERIES_DEF[an].letra, meses:SERIES_DEF[an].meses, j:sJ, a:sA, t:sT, s:rowsM[(an+1)*12-1]?.s||0});
+  }
+
+  // Juros do 1º mês
+  const jMes1 = totalOp * tx;
+
+  // Summary
+  s('sCrS',    fmt(crePorSerie));    s('sCrSSub',    ccb.nCCB+' CCBs × '+fmt(ccb.valorCCB));
+  s('sTotOp',  fmt(totalOp));        s('sTotOpSub',  nSer+' série'+(nSer>1?'s':''));
+  s('sCuV',    fmt(cuTot));          s('sCuS',       fmtP(cu*100)+' sobre o total');
+  s('sLi',     fmt(liqTot));
+  s('sPa',     fmt(jMes1));
+  s('sCCBSer', ccb.nCCB+'');
+  s('sCCBTot', totalCCBs+'');        s('sCCBTotSub', nSer+' séries × '+ccb.nCCB);
+  s('sTj',     fmt(tj));
+  s('sTp',     fmt(totalOp+tj+cuTot));
+  s('sLv',     ltv.toFixed(2)+'%');
+  s('sCe',     fmtP(cet*100)+' a.m.'); s('sCeS', fmtP(cetA)+' a.a.');
+  s('tagM',    'Juros Mensais + Amort. por Série');
+
+  // Cláusulas
+  const serDesc = seriesAtivas.map((sr,i)=>`Série ${sr.letra} em <strong>${sr.meses} meses</strong>`).join(', ');
+  s('c1',`A CONTRATADA compromete-se a encomendar e endossar <strong>${totalCCBs} Cédulas de Crédito Bancário ("CCB")</strong>, individuais, no valor de <strong>${fmt(ccb.valorCCB)}</strong> cada, totalizando <strong>${fmt(totalOp)}</strong>, distribuídas em <strong>${nSer} série${nSer>1?'s':''}</strong> de <strong>${ccb.nCCB} CCB${ccb.nCCB>1?'s':''} cada</strong>, emitidas na modalidade Capital de Giro — Operação de Recebíveis.`);
+  s('c2',`O principal de cada série (<strong>${fmt(crePorSerie)}</strong>) será amortizado integralmente no vencimento da respectiva série: ${serDesc}.`);
+  s('c3',`Sobre o saldo devedor remanescente incidirão <strong>juros de ${fmtP(tx*100)} ao mês</strong>. O saldo inicial é <strong>${fmt(totalOp)}</strong>, reduzindo-se em <strong>${fmt(crePorSerie)}</strong> a cada amortização de série.`);
+  s('c4',`A parcela de juros do 1º mês é <strong>${fmt(jMes1)}</strong>${nSer>1?' e decresce após cada amortização de série':''}.`);
+
+  // Tabela de séries
+  let h='';
+  seriesAtivas.forEach((ser,i)=>{
+    const saldoInicio = totalOp - (i * crePorSerie);
+    const jMesSerie   = saldoInicio * tx;
+    h+=`<tr>
+      <td><strong>${ser.letra}</strong></td>
+      <td>${ccb.nCCB} CCB${ccb.nCCB>1?'s':''}</td>
+      <td>${fmt(ccb.valorCCB)}</td>
+      <td><strong>${fmt(crePorSerie)}</strong></td>
+      <td>${ser.meses} meses</td>
+      <td>${fmt(jMesSerie)}/mês</td>
+      <td><strong>${fmt(crePorSerie)}</strong></td>
+    </tr>`;
+  });
+  s('sTb', h);
+  s('sTf', `<tr style="background:var(--navy)">
+    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">TOTAL</td>
+    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">${totalCCBs} CCBs</td>
+    <td style="color:rgba(255,255,255,.4);padding:9px 14px">${fmt(ccb.valorCCB)}</td>
+    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">${fmt(totalOp)}</td>
+    <td style="color:rgba(255,255,255,.4);padding:9px 14px">—</td>
+    <td style="color:rgba(255,255,255,.4);padding:9px 14px;font-size:10px">decrescente</td>
+    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">${fmt(totalOp)}</td>
+  </tr>`);
 
   s('c6g', fmt(con));
   s('c6l', ltv.toFixed(2)+'%');
   renderT();
 }
 
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 //  RENDER TABELA
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 function renderT(){
   const th=g('mTh'), tb=g('mTb');
   if(vwMode==='m'){
     th.innerHTML=`<tr>
       <th style="text-align:left">Parcela</th>
       <th style="text-align:left">Série</th>
-      <th>Data</th>
-      <th>Juros</th>
-      <th>Amortização</th>
-      <th>Total</th>
-      <th>Saldo Devedor</th>
+      <th>Data</th><th>Juros</th><th>Amortização</th><th>Total</th><th>Saldo Devedor</th>
     </tr>`;
     tb.innerHTML=rowsM.map(r=>`<tr class="${r.isA?'ra':''}">
       <td>${String(r.p).padStart(3,'0')}${r.isA?'<span class="ba">AMORT</span>':''}</td>
-      <td style="color:var(--gold3);font-weight:600">${letras[r.serIdx]||'—'}</td>
+      <td style="font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold3)">${SERIES_DEF[r.serIdx]?.letra||'—'}</td>
       <td style="text-align:right">${r.dt}</td>
       <td class="cj">${fmt(r.j)}</td>
       <td class="ca">${r.a>0?fmt(r.a):'<span style="color:#CBD2DC">—</span>'}</td>
@@ -642,15 +744,12 @@ function renderT(){
   } else {
     th.innerHTML=`<tr>
       <th style="text-align:left">Série</th>
-      <th>Nº CCBs</th>
-      <th>Juros Acumulados</th>
-      <th>Amortização</th>
-      <th>Total Pago</th>
-      <th>Saldo Devedor</th>
+      <th>CCBs</th><th>Juros Acumulados</th><th>Amortização</th><th>Total Pago</th><th>Saldo Devedor</th>
     </tr>`;
+    const ccb=calcCCBs(V.cre);
     tb.innerHTML=rowsA.map(r=>`<tr class="ra">
-      <td>Série ${letras[r.an-1]} — ${r.an*12} meses</td>
-      <td style="text-align:right;color:var(--gold3);font-weight:600">${r.nCCB||'—'} CCBs</td>
+      <td>Série ${r.letra} — ${r.meses} meses</td>
+      <td style="text-align:right;color:var(--gold3);font-weight:600">${ccb.nCCB} CCBs</td>
       <td class="cj">${fmt(r.j)}</td>
       <td class="ca">${fmt(r.a)}</td>
       <td class="ct">${fmt(r.t)}</td>
@@ -659,36 +758,40 @@ function renderT(){
   }
 }
 
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 //  ENVIO
-// ════════════════════════════════════
+// ══════════════════════════════════════════
 function montarPayload(){
   const tx=parseFloat(g('rTx').value), cu=parseFloat(g('rCu').value);
-  const ccb=calcCCBs(V.cre, nSer);
+  const totalOp=V.cre*nSer;
+  const ccb=calcCCBs(V.cre);
+  const seriesAtivas=SERIES_DEF.slice(0,nSer).map(s=>s.letra+' ('+s.meses+'m)').join(', ');
   return {
     tipo:'simulacao',
     data:hoje.toLocaleDateString('pt-BR'),
-    indicador_nome:   ind?.nome   || '—',
-    indicador_codigo: ind?.codigo || '—',
-    indicador_whats:  ind?.whats  || '—',
-    indicador_email:  ind?.email  || '—',
-    cliente_nome:     g('cliNm').value  || '—',
-    cliente_doc:      g('cliDoc').value || '—',
-    cliente_segmento: g('cliSeg').value || '—',
-    cliente_cidade:   g('cliCid').value || '—',
+    indicador_nome:   ind?.nome   ||'—',
+    indicador_codigo: ind?.codigo ||'—',
+    indicador_whats:  ind?.whats  ||'—',
+    indicador_email:  ind?.email  ||'—',
+    cliente_nome:     g('cliNm').value  ||'—',
+    cliente_doc:      g('cliDoc').value ||'—',
+    cliente_segmento: g('cliSeg').value ||'—',
+    cliente_cidade:   g('cliCid').value ||'—',
     contratos:        fmt(V.con),
-    credito:          fmt(V.cre),
-    custo_pct:        fmtP(cu),
-    custo_val:        fmt(V.cre*(cu/100)),
-    credito_liquido:  fmt(V.cre-V.cre*(cu/100)),
-    ltv:              (V.cre/V.con*100).toFixed(2)+'%',
-    total_ccbs:       ccb.total,
-    ccbs_por_serie:   ccb.base,
+    credito_por_serie:fmt(V.cre),
+    total_operacao:   fmt(totalOp),
     series:           nSer,
+    series_desc:      seriesAtivas,
+    ccbs_por_serie:   ccb.nCCB,
+    valor_por_ccb:    fmt(ccb.valorCCB),
+    total_ccbs:       ccb.nCCB*nSer,
     taxa_mensal:      fmtP(tx),
-    parcela_juros:    fmt(V.cre*(tx/100)),
-    amort_serie:      fmt(ccb.base*CCB_VALOR),
-    modelo:           g('mdl').value==='ja'?'Juros Mensais + Amort. Anual':'Tabela PRICE'
+    juros_mes1:       fmt(totalOp*(tx/100)),
+    custo_pct:        fmtP(cu),
+    custo_val:        fmt(totalOp*cu),
+    liquido_total:    fmt(totalOp-totalOp*cu),
+    ltv:              (totalOp/V.con*100).toFixed(2)+'%',
+    modelo:           'Juros Mensais + Amortização por Série'
   };
 }
 
@@ -706,14 +809,14 @@ async function enviar(){
     msg.textContent='⚠ Preencha o nome do cliente antes de enviar.'; return;
   }
   btn.disabled=true; btn.textContent='Enviando...'; msg.style.display='none';
-  const ok = await enviarParaSheets(montarPayload());
+  const ok=await enviarParaSheets(montarPayload());
   btn.disabled=false; btn.textContent='✉ Enviar Simulação';
   if(ok){
     msg.className='ss-msg ok'; msg.style.display='block';
     msg.textContent='✅ Simulação enviada! Planilha atualizada e e-mail disparado.';
   } else {
     msg.className='ss-msg er'; msg.style.display='block';
-    msg.textContent='❌ Falha ao enviar. Verifique sua conexão ou o Apps Script.';
+    msg.textContent='❌ Falha ao enviar. Verifique sua conexão.';
   }
 }
 
