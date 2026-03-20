@@ -11,7 +11,7 @@
   --gold:#C9A84C;--gold2:#E8C97A;--gold3:#A07830;
   --off:#F7F8FA;--border:#E2E6ED;--text:#1A2535;
   --muted:#6B7A92;--light:#8FA0B8;
-  --green:#1A8A50;--blue:#1E5FA8;--red:#C0392B;--orange:#E07820;
+  --green:#1A8A50;--blue:#1E5FA8;--red:#C0392B;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;font-size:14px;line-height:1.5;}
@@ -26,35 +26,42 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .topbar-date{font-size:12px;color:rgba(255,255,255,.4);}
 
 /* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(10,15,25,.8);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
-.modal{background:#fff;border-radius:16px;width:100%;max-width:460px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.3);}
-.modal-head{background:var(--navy);padding:24px 28px;}
-.modal-head h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:3px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(10,15,25,.85);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:440px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.3);}
+.modal-head{background:var(--navy);padding:28px 28px 22px;}
+.modal-head h2{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px;}
 .modal-head h2 em{color:var(--gold);font-style:normal;}
 .modal-head p{font-size:12px;color:rgba(255,255,255,.45);}
 .modal-body{padding:28px;}
 .modal-tabs{display:flex;background:var(--off);border:1px solid var(--border);border-radius:8px;margin-bottom:22px;overflow:hidden;}
-.modal-tab{flex:1;padding:10px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+.modal-tab{flex:1;padding:11px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
 .modal-tab.active{background:var(--navy);color:var(--gold2);}
 .fg{margin-bottom:14px;}
 .fg label{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.fg input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+.fg input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;background:#fff;}
 .fg input:focus{border-color:var(--gold);}
+.fg .pw-wrap{position:relative;}
+.fg .pw-wrap input{padding-right:42px;}
+.fg .pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--muted);font-size:16px;user-select:none;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.btn-block{width:100%;padding:14px;border-radius:8px;border:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.btn-block{width:100%;padding:14px;border-radius:8px;border:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s;margin-top:6px;}
 .btn-block.navy{background:var(--navy);color:var(--gold2);}
 .btn-block.gold{background:var(--gold);color:var(--navy);}
 .btn-block:hover{opacity:.88;}
 .modal-alt{text-align:center;font-size:12px;color:var(--light);margin-top:14px;}
 .modal-alt a{color:var(--blue);cursor:pointer;font-weight:600;}
 .err-box{background:#FEF2F2;border:1px solid #FCA5A5;border-radius:6px;padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:12px;display:none;}
+.ok-box{background:#F0FBF5;border:1px solid #A7F3C8;border-radius:6px;padding:10px 14px;font-size:12px;color:var(--green);margin-bottom:12px;display:none;}
 
 /* IND BAR */
 .ind-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 40px;display:none;align-items:center;justify-content:space-between;}
 .ind-info{display:flex;align-items:center;gap:10px;}
-.ind-av{width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--gold2);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.ind-av{width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--gold2);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.ind-right{display:flex;flex-direction:column;}
 .ind-nm{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--navy);}
+.ind-meta{display:flex;align-items:center;gap:10px;}
 .ind-cd{font-size:11px;color:var(--muted);}
+.ind-tag{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:2px 7px;}
 .btn-sair{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:transparent;border:1px solid var(--border);border-radius:6px;padding:6px 12px;color:var(--muted);cursor:pointer;}
 .btn-sair:hover{border-color:var(--red);color:var(--red);}
 
@@ -85,31 +92,27 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .cf input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Open Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;}
 .cf input:focus{border-color:var(--gold);}
 
-/* SERIES SELECTOR */
+/* SERIES */
 .series-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
 .series-card-head{background:var(--navy);padding:13px 20px;display:flex;align-items:center;gap:8px;}
 .series-card-head h3{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#fff;}
 .series-card-body{padding:18px;}
 .series-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.serie-box{border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;position:relative;background:#fff;}
+.serie-box{border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;background:#fff;}
 .serie-box:hover{border-color:var(--gold);}
 .serie-box.active{border-color:var(--navy);background:var(--navy);}
-.serie-box.active .sb-letra{color:var(--gold2);}
-.serie-box.active .sb-prazo{color:var(--gold);}
-.serie-box.active .sb-desc{color:rgba(255,255,255,.5);}
-.serie-box.active .sb-ccb{color:var(--gold2);}
 .sb-letra{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;color:var(--navy);line-height:1;}
+.serie-box.active .sb-letra{color:var(--gold2);}
 .sb-prazo{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--gold3);margin-top:4px;}
+.serie-box.active .sb-prazo{color:var(--gold);}
 .sb-desc{font-size:10px;color:var(--muted);margin-top:2px;}
+.serie-box.active .sb-desc{color:rgba(255,255,255,.5);}
 .sb-ccb{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-.serie-box.active .sb-ccb{border-top-color:rgba(255,255,255,.15);}
-.serie-hint{font-size:11px;color:var(--muted);margin-top:12px;}
+.serie-box.active .sb-ccb{color:var(--gold2);border-top-color:rgba(255,255,255,.15);}
+.serie-hint{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.7;}
 .serie-hint strong{color:var(--navy);}
-
-/* ALERTA CCB */
-.alert-ccb{border-radius:8px;padding:10px 14px;font-size:12px;margin-top:12px;display:none;}
+.alert-ccb{border-radius:8px;padding:10px 14px;font-size:12px;margin-top:10px;display:none;}
 .alert-ccb.warn{background:#FFF8E6;border:1px solid var(--gold);color:var(--gold3);}
-.alert-ccb.info{background:#F0F4FF;border:1px solid #B8C8F0;color:var(--blue);}
 
 /* CONTROLS */
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:13px;margin-bottom:22px;}
@@ -122,7 +125,6 @@ body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;
 .ctrl-row{display:flex;align-items:baseline;gap:4px;}
 .ctrl input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;margin-top:6px;}
 .rr{display:flex;justify-content:space-between;font-size:9px;color:var(--light);font-family:'Montserrat',sans-serif;font-weight:600;margin-top:3px;}
-.ctrl select{border:none;outline:none;background:transparent;color:var(--text);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;width:100%;cursor:pointer;margin-top:4px;}
 
 /* SUMMARY */
 .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:11px;margin-bottom:22px;}
@@ -215,33 +217,58 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOv">
   <div class="modal">
-    <div class="modal-head"><h2>Finance <em>X</em> Capital</h2><p>Simulador exclusivo para indicadores de negócios</p></div>
+    <div class="modal-head">
+      <h2>Finance <em>X</em> Capital</h2>
+      <p>Simulador exclusivo para indicadores de negócios</p>
+    </div>
     <div class="modal-body">
       <div class="modal-tabs">
-        <button class="modal-tab active" onclick="swTab('login',this)">Entrar</button>
-        <button class="modal-tab" onclick="swTab('cad',this)">Cadastrar</button>
+        <button class="modal-tab active" id="tabLoginBtn" onclick="swTab('login',this)">Entrar</button>
+        <button class="modal-tab" id="tabCadBtn" onclick="swTab('cad',this)">Cadastrar</button>
       </div>
+
+      <!-- LOGIN -->
       <div id="tLogin">
-        <div class="err-box" id="errLogin">Verifique seu código ou cadastre-se.</div>
-        <div class="fg"><label>Código do Indicador</label><input id="lCod" placeholder="Ex: FX-0001" oninput="this.value=this.value.toUpperCase()"></div>
-        <div class="fg"><label>Seu Nome Completo</label><input id="lNome" placeholder="Nome completo"></div>
+        <div class="err-box" id="errLogin">E-mail ou senha incorretos.</div>
+        <div class="fg">
+          <label>E-mail</label>
+          <input id="lEmail" type="email" placeholder="seu@email.com" autocomplete="email">
+        </div>
+        <div class="fg">
+          <label>Senha</label>
+          <div class="pw-wrap">
+            <input id="lSenha" type="password" placeholder="Sua senha" autocomplete="current-password">
+            <span class="pw-eye" onclick="togglePw('lSenha',this)">👁</span>
+          </div>
+        </div>
         <button class="btn-block navy" onclick="doLogin()">Entrar no Simulador</button>
-        <div class="modal-alt">Não tem código? <a onclick="swTab('cad',document.querySelectorAll('.modal-tab')[1])">Cadastre-se</a></div>
+        <div class="modal-alt">Não tem conta? <a onclick="swTab('cad',document.getElementById('tabCadBtn'))">Cadastre-se grátis</a></div>
       </div>
+
+      <!-- CADASTRO -->
       <div id="tCad" style="display:none">
         <div class="err-box" id="errCad">Preencha todos os campos obrigatórios.</div>
+        <div class="ok-box" id="okCad">✅ Cadastro realizado! Entrando...</div>
         <div class="frow">
           <div class="fg"><label>Nome Completo *</label><input id="cNome" placeholder="Seu nome"></div>
           <div class="fg"><label>WhatsApp *</label><input id="cWhats" placeholder="(11) 99999-9999"></div>
         </div>
-        <div class="fg"><label>E-mail *</label><input id="cEmail" type="email" placeholder="seu@email.com"></div>
+        <div class="fg"><label>E-mail *</label><input id="cEmail" type="email" placeholder="seu@email.com" autocomplete="email"></div>
+        <div class="fg">
+          <label>Senha *</label>
+          <div class="pw-wrap">
+            <input id="cSenha" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+            <span class="pw-eye" onclick="togglePw('cSenha',this)">👁</span>
+          </div>
+        </div>
         <div class="frow">
           <div class="fg"><label>CPF / CNPJ</label><input id="cDoc" placeholder="000.000.000-00"></div>
           <div class="fg"><label>Cidade / Estado</label><input id="cCidade" placeholder="São Paulo - SP"></div>
         </div>
-        <button class="btn-block gold" onclick="doCad()">Criar Meu Acesso</button>
-        <div class="modal-alt">Já tem código? <a onclick="swTab('login',document.querySelectorAll('.modal-tab')[0])">Entrar</a></div>
+        <button class="btn-block gold" onclick="doCad()">Criar Minha Conta</button>
+        <div class="modal-alt">Já tem conta? <a onclick="swTab('login',document.getElementById('tabLoginBtn'))">Entrar</a></div>
       </div>
+
     </div>
   </div>
 </div>
@@ -249,17 +276,28 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-brand"><div class="logo-x">X</div>Finance <em>X</em> Capital</div>
-  <div class="topbar-right"><div class="topbar-tag">Simulador de Crédito</div><div class="topbar-date" id="tDate"></div></div>
+  <div class="topbar-right">
+    <div class="topbar-tag">Simulador de Crédito</div>
+    <div class="topbar-date" id="tDate"></div>
+  </div>
 </div>
 
+<!-- IND BAR -->
 <div class="ind-bar" id="indBar">
   <div class="ind-info">
     <div class="ind-av" id="indAv">?</div>
-    <div><div class="ind-nm" id="indNm">—</div><div class="ind-cd" id="indCd">—</div></div>
+    <div class="ind-right">
+      <div class="ind-nm" id="indNm">—</div>
+      <div class="ind-meta">
+        <div class="ind-cd" id="indEmail">—</div>
+        <div class="ind-tag" id="indTag">—</div>
+      </div>
+    </div>
   </div>
   <button class="btn-sair" onclick="sair()">Sair</button>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
@@ -375,7 +413,7 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
   <!-- TERMOS -->
   <div class="sl">Cláusulas Contratuais</div>
   <div class="tc">
-    <div class="th"><h3>Cláusula 1 — Das Características da Emissão</h3><div class="tag-op" id="tagM">Juros Mensais + Amort. por Série</div></div>
+    <div class="th"><h3>Cláusula 1 — Das Características da Emissão</h3><div class="tag-op">Juros Mensais + Amort. por Série</div></div>
     <div class="tb-body">
       <div class="cl"><div class="cl-n">Art. 1.1 — Emissão das CCBs</div><p id="c1">—</p></div>
       <div class="cl"><div class="cl-n">Art. 1.2 — Liquidação do Principal</div><p id="c2">—</p></div>
@@ -389,7 +427,7 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
           <tbody id="sTb"></tbody>
           <tfoot id="sTf"></tfoot>
         </table>
-        <p style="font-size:11px;color:var(--muted);margin-top:8px">*Juros calculados sobre saldo devedor remanescente — decrescem a cada amortização de série.</p>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px">*Juros calculados sobre saldo devedor — decrescem a cada amortização.</p>
       </div>
       <div class="cl"><div class="cl-n">Art. 1.6 — Garantia</div><p>Garantida por <strong>cessão fiduciária de recebíveis</strong> no valor estimado de <strong id="c6g">—</strong>, com LTV de <strong id="c6l">—</strong>, condicionada à apresentação de laudo técnico e parecer jurídico aprovados pela CONTRATADA.</p></div>
       <div class="cl"><div class="cl-n">Art. 1.7 — Validade da Proposta</div><p>Validade de <strong>10 (dez) dias corridos</strong> a partir de <strong id="c7d">—</strong>. Valores estimativos sem valor legal até assinatura do contrato definitivo.</p></div>
@@ -407,14 +445,14 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
       </div>
     </div>
     <div class="tscroll"><table class="mt"><thead id="mTh"></thead><tbody id="mTb"></tbody></table></div>
-    <div class="tfoot-tb">⚠ Resultados são estimativas sem valor legal. &nbsp;|&nbsp; Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; v5.0</div>
+    <div class="tfoot-tb">⚠ Resultados são estimativas sem valor legal. &nbsp;|&nbsp; Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; v6.0</div>
   </div>
 
   <!-- ENVIAR -->
   <div class="sl">Enviar Simulação</div>
   <div class="sp">
     <h3>📤 Registrar e Enviar esta Simulação</h3>
-    <p>A simulação será registrada com sua tag de indicador, salva na planilha de controle e enviada por e-mail.</p>
+    <p>A simulação será registrada com sua tag de indicador, salva na planilha e enviada por e-mail para a equipe Finance X Capital.</p>
     <div class="sa">
       <button class="btn-s p" id="btnEnv" onclick="enviar()">✉ Enviar Simulação</button>
       <button class="btn-s o" onclick="window.print()">🖨 Imprimir / PDF</button>
@@ -435,24 +473,22 @@ footer p{font-size:11px;color:rgba(255,255,255,.3);}
 //  CONFIGURAÇÃO
 // ══════════════════════════════════════════
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOkaYjHPSFu9NgY_-H7Ves2A7EN2Dg5mBqFrSqgeZPDp_Lv9lhDm5R_9yzM7u7RIFz/exec';
-const CCB_IDEAL = 100000; // R$ 100.000 ideal por CCB
-
-// Séries fixas: A=12m, B=24m, C=36m, D=48m — sempre sequenciais
+const CCB_IDEAL = 100000;
 const SERIES_DEF = [
-  { letra:'A', meses:12 },
-  { letra:'B', meses:24 },
-  { letra:'C', meses:36 },
-  { letra:'D', meses:48 },
+  {letra:'A', meses:12},
+  {letra:'B', meses:24},
+  {letra:'C', meses:36},
+  {letra:'D', meses:48},
 ];
 
 // ══════════════════════════════════════════
 //  ESTADO
 // ══════════════════════════════════════════
-let ind     = null;
-let vwMode  = 'm';
-let rowsM   = [], rowsA = [];
-let nSer    = 1;       // quantas séries ativas (sempre A, A+B, A+B+C, A+B+C+D)
-let V       = { cre: 1000000, con: 14000000 };
+let ind    = null;
+let vwMode = 'm';
+let rowsM  = [], rowsA = [];
+let nSer   = 1;
+let V      = {cre:1000000, con:14000000};
 
 const hoje = new Date();
 const dtF  = {day:'2-digit', month:'long', year:'numeric'};
@@ -466,7 +502,7 @@ function g(id){ return document.getElementById(id); }
 function s(id,h){ const e=g(id); if(e) e.innerHTML=h; }
 const fmt  = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const fmtP = v => v.toFixed(2).replace('.',',')+' %';
-const fmtS = v => v>=1e6 ? 'R$ '+(v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'M' : v>=1e3 ? 'R$ '+(v/1e3).toFixed(0)+'k' : fmt(v);
+const fmtS = v => v>=1e6?'R$ '+(v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'M':v>=1e3?'R$ '+(v/1e3).toFixed(0)+'k':fmt(v);
 const fmtI = v => v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const parseR = str => parseFloat(str.replace(/\./g,'').replace(',','.'))||0;
 
@@ -477,36 +513,16 @@ function mascDoc(el){
   el.value=v;
 }
 
-// ══════════════════════════════════════════
-//  SELEÇÃO DE SÉRIES
-//  Sempre sequencial: clicar em B ativa A+B,
-//  clicar em A quando A é única desativa tudo
-//  (mínimo sempre 1 série — A)
-// ══════════════════════════════════════════
-function toggleSerie(letra){
-  const idx = SERIES_DEF.findIndex(s=>s.letra===letra);
-  // Se clicou na série além da última ativa → ativa até ela
-  // Se clicou na última série ativa → desativa ela (mínimo 1)
-  if(idx+1 > nSer){
-    nSer = idx+1;
-  } else if(idx+1 === nSer && nSer > 1){
-    nSer = idx; // desativa essa série (volta para anterior)
-  }
-  // Sempre garante mínimo 1
-  if(nSer < 1) nSer = 1;
-  atualizarBoxes();
-  calc();
-}
-
-function atualizarBoxes(){
-  SERIES_DEF.forEach((ser,i)=>{
-    const box = g('box'+ser.letra);
-    box.classList.toggle('active', i < nSer);
-  });
+function togglePw(id, eye){
+  const el=g(id);
+  if(el.type==='password'){ el.type='text'; eye.textContent='🙈'; }
+  else { el.type='password'; eye.textContent='👁'; }
 }
 
 // ══════════════════════════════════════════
-//  AUTH
+//  AUTH — e-mail + senha
+//  Dados salvos no localStorage do navegador
+//  Tag gerada automaticamente: FX + iniciais + número
 // ══════════════════════════════════════════
 function swTab(t,btn){
   g('tLogin').style.display = t==='login'?'block':'none';
@@ -514,46 +530,126 @@ function swTab(t,btn){
   document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
-function gerarCod(){ return 'FX-'+Math.floor(1000+Math.random()*9000); }
+
+function gerarTag(nome){
+  // Ex: João Silva → FX-JS-4821
+  const parts = nome.trim().split(' ').filter(Boolean);
+  const iniciais = parts.length>=2
+    ? (parts[0][0]+parts[parts.length-1][0]).toUpperCase()
+    : parts[0].substring(0,2).toUpperCase();
+  return 'FX-'+iniciais+'-'+Math.floor(1000+Math.random()*9000);
+}
+
+function hashSenha(s){
+  // Hash simples para armazenamento local (não criptográfico)
+  let h=0;
+  for(let i=0;i<s.length;i++) h=((h<<5)-h)+s.charCodeAt(i), h|=0;
+  return h.toString(16);
+}
 
 function doCad(){
-  const nome=g('cNome').value.trim(), wh=g('cWhats').value.trim(), em=g('cEmail').value.trim();
-  if(!nome||!wh||!em){ g('errCad').style.display='block'; return; }
-  g('errCad').style.display='none';
-  const cod=gerarCod();
-  const ni={nome,whats:wh,email:em,doc:g('cDoc').value.trim(),cidade:g('cCidade').value.trim(),codigo:cod,data:hoje.toLocaleDateString('pt-BR')};
-  salvarLocal(ni);
-  enviarParaSheets({tipo:'novo_indicador',...ni});
-  entrar(ni);
-  alert('✅ Cadastro realizado!\n\nSeu código de indicador:\n\n'+cod+'\n\nGuarde este código para próximos acessos.');
+  const nome  = g('cNome').value.trim();
+  const whats = g('cWhats').value.trim();
+  const email = g('cEmail').value.trim().toLowerCase();
+  const senha = g('cSenha').value;
+  const errEl = g('errCad');
+
+  if(!nome||!whats||!email||!senha){
+    errEl.textContent='Preencha todos os campos obrigatórios.';
+    errEl.style.display='block'; return;
+  }
+  if(senha.length<6){
+    errEl.textContent='A senha deve ter pelo menos 6 caracteres.';
+    errEl.style.display='block'; return;
+  }
+  errEl.style.display='none';
+
+  let users = JSON.parse(localStorage.getItem('fx_users')||'[]');
+  if(users.find(u=>u.email===email)){
+    errEl.textContent='Este e-mail já está cadastrado. Faça login.';
+    errEl.style.display='block'; return;
+  }
+
+  const tag = gerarTag(nome);
+  const novoUser = {
+    nome, whats, email,
+    senha: hashSenha(senha),
+    doc:    g('cDoc').value.trim(),
+    cidade: g('cCidade').value.trim(),
+    tag,
+    data: hoje.toLocaleDateString('pt-BR')
+  };
+
+  users.push(novoUser);
+  localStorage.setItem('fx_users', JSON.stringify(users));
+
+  // Registra no sheets
+  enviarParaSheets({tipo:'novo_indicador', ...novoUser, senha:undefined});
+
+  g('okCad').style.display='block';
+  setTimeout(()=>entrar(novoUser), 1200);
 }
 
 function doLogin(){
-  const cod=g('lCod').value.trim().toUpperCase(), nome=g('lNome').value.trim();
-  if(!cod||!nome){ g('errLogin').style.display='block'; return; }
-  g('errLogin').style.display='none';
-  let lista=JSON.parse(localStorage.getItem('fx_inds')||'[]');
-  let found=lista.find(i=>i.codigo===cod);
-  if(!found){ found={nome,codigo:cod,data:hoje.toLocaleDateString('pt-BR')}; salvarLocal(found); }
-  entrar(found);
+  const email = g('lEmail').value.trim().toLowerCase();
+  const senha = g('lSenha').value;
+  const errEl = g('errLogin');
+
+  if(!email||!senha){ errEl.style.display='block'; return; }
+
+  const users = JSON.parse(localStorage.getItem('fx_users')||'[]');
+  const user  = users.find(u=>u.email===email && u.senha===hashSenha(senha));
+
+  if(!user){ errEl.style.display='block'; return; }
+  errEl.style.display='none';
+  entrar(user);
 }
 
-function salvarLocal(i){
-  let lista=JSON.parse(localStorage.getItem('fx_inds')||'[]');
-  if(!lista.find(x=>x.codigo===i.codigo)) lista.push(i);
-  localStorage.setItem('fx_inds',JSON.stringify(lista));
-}
-
-function entrar(i){
-  ind=i;
+function entrar(u){
+  ind = u;
+  // Salva sessão
+  localStorage.setItem('fx_session', JSON.stringify({email:u.email, ts:Date.now()}));
   g('modalOv').style.display='none';
   g('indBar').style.display='flex';
-  g('indAv').textContent=i.nome.charAt(0).toUpperCase();
-  g('indNm').textContent=i.nome;
-  g('indCd').textContent='🏷 '+i.codigo;
+  g('indAv').textContent = u.nome.charAt(0).toUpperCase();
+  g('indNm').textContent  = u.nome;
+  g('indEmail').textContent = u.email;
+  g('indTag').textContent   = u.tag || '—';
 }
 
-function sair(){ if(confirm('Deseja sair?')){ ind=null; g('modalOv').style.display='flex'; g('indBar').style.display='none'; } }
+function sair(){
+  if(confirm('Deseja sair?')){
+    ind=null;
+    localStorage.removeItem('fx_session');
+    g('modalOv').style.display='flex';
+    g('indBar').style.display='none';
+    g('lEmail').value='';
+    g('lSenha').value='';
+  }
+}
+
+// Tenta restaurar sessão ao carregar
+(function tentarSessao(){
+  const sess = JSON.parse(localStorage.getItem('fx_session')||'null');
+  if(!sess) return;
+  // Sessão expira em 8h
+  if(Date.now()-sess.ts > 8*60*60*1000){ localStorage.removeItem('fx_session'); return; }
+  const users = JSON.parse(localStorage.getItem('fx_users')||'[]');
+  const user  = users.find(u=>u.email===sess.email);
+  if(user) entrar(user);
+})();
+
+// ══════════════════════════════════════════
+//  SÉRIES
+// ══════════════════════════════════════════
+function toggleSerie(letra){
+  const idx=SERIES_DEF.findIndex(s=>s.letra===letra);
+  if(idx+1>nSer) nSer=idx+1;
+  else if(idx+1===nSer && nSer>1) nSer=idx;
+  if(nSer<1) nSer=1;
+  SERIES_DEF.forEach((ser,i)=>g('box'+ser.letra).classList.toggle('active',i<nSer));
+  calc();
+}
 
 // ══════════════════════════════════════════
 //  CONTROLES
@@ -569,237 +665,119 @@ function resetar(){
   g('iCre').value=fmtI(1000000); g('iCon').value=fmtI(14000000);
   g('rTx').value=2.76; g('rCu').value=8.38;
   ['cliNm','cliDoc','cliSeg','cliCid'].forEach(id=>g(id).value='');
-  nSer=1; atualizarBoxes();
+  nSer=1; SERIES_DEF.forEach((ser,i)=>g('box'+ser.letra).classList.toggle('active',i===0));
   uTx(); uCu(); calc();
   g('ssMsg').style.display='none';
 }
 
 // ══════════════════════════════════════════
-//  CÁLCULO DE CCBs
-//
-//  Ideal: múltiplos de R$100k → CCBs de R$100k
-//  Se não for múltiplo: CCBs de valor menor (não ideal)
-//  Quantidade de CCBs = arredonda para inteiro mais próximo
+//  CCBs
 // ══════════════════════════════════════════
-function calcCCBs(crePorSerie){
-  const nCCB     = Math.round(crePorSerie / CCB_IDEAL);
-  const nCCBReal = Math.max(1, nCCB);
-  const valorCCB = crePorSerie / nCCBReal;
-  const isIdeal  = Math.abs(valorCCB - CCB_IDEAL) < 0.01;
-  return { nCCB: nCCBReal, valorCCB, isIdeal };
+function calcCCBs(cre){
+  const n=Math.max(1,Math.round(cre/CCB_IDEAL));
+  const vCCB=cre/n;
+  return {n, vCCB, ideal:Math.abs(vCCB-CCB_IDEAL)<0.01};
 }
 
 // ══════════════════════════════════════════
-//  CÁLCULO PRINCIPAL
+//  CÁLCULO
 // ══════════════════════════════════════════
 function calc(){
-  const crePorSerie = V.cre || 1000000;
-  const con         = V.con || 14000000;
-  const tx          = parseFloat(g('rTx').value)/100;
-  const cu          = parseFloat(g('rCu').value)/100;
-  const prazo       = SERIES_DEF[nSer-1].meses; // prazo = vencimento da última série
-  const seriesAtivas= SERIES_DEF.slice(0, nSer);
+  const cre=V.cre||1000000, con=V.con||14000000;
+  const tx=parseFloat(g('rTx').value)/100;
+  const cu=parseFloat(g('rCu').value)/100;
+  const prazo=SERIES_DEF[nSer-1].meses;
+  const serAtivas=SERIES_DEF.slice(0,nSer);
+  const totalOp=cre*nSer;
+  const cuTot=totalOp*cu, liq=totalOp-cuTot;
+  const ltv=totalOp/con*100;
+  const cet=tx+(cu/prazo), cetA=(Math.pow(1+cet,12)-1)*100;
+  const ccb=calcCCBs(cre);
+  const totCCBs=ccb.n*nSer;
 
-  // Totais
-  const totalOp  = crePorSerie * nSer;
-  const cuTot    = totalOp * cu;
-  const liqTot   = totalOp - cuTot;
-  const ltv      = totalOp / con * 100;
-  const cet      = tx + (cu / prazo);
-  const cetA     = (Math.pow(1+cet,12)-1)*100;
-
-  // CCBs
-  const ccb = calcCCBs(crePorSerie);
-  const totalCCBs = ccb.nCCB * nSer;
-
-  // Atualiza badges nas series boxes
+  // CCB badges
   SERIES_DEF.forEach((ser,i)=>{
-    const el = g('ccb'+ser.letra);
-    if(i < nSer) el.textContent = ccb.nCCB+' CCB'+(ccb.nCCB>1?'s':'');
-    else el.textContent = '—';
+    g('ccb'+ser.letra).textContent = i<nSer ? ccb.n+' CCB'+(ccb.n>1?'s':'') : '—';
   });
 
-  // Alerta CCB
-  const alertEl = g('alertCCB');
-  if(!ccb.isIdeal){
-    alertEl.className='alert-ccb warn';
-    alertEl.style.display='block';
-    alertEl.innerHTML=`⚠ <strong>CCBs menores que o ideal:</strong> ${crePorSerie > CCB_IDEAL
-      ? fmt(crePorSerie)+' não é múltiplo de R$ 100.000,00 — cada CCB terá '+fmt(ccb.valorCCB)
-      : 'Valor por série menor que R$ 100.000,00 — será emitida 1 CCB de '+fmt(crePorSerie)}.`;
-  } else {
-    alertEl.style.display='none';
-  }
+  // Alerta
+  const al=g('alertCCB');
+  if(!ccb.ideal){
+    al.className='alert-ccb warn'; al.style.display='block';
+    al.innerHTML=`⚠ <strong>Valor não múltiplo de R$ 100.000,00</strong> — cada CCB será emitida com ${fmt(ccb.vCCB)}. O ideal é trabalhar com múltiplos de R$ 100k.`;
+  } else al.style.display='none';
 
   // Hint
-  const letrasAtivas = seriesAtivas.map(s=>s.letra).join(' + ');
-  g('serieHint').innerHTML = `<strong>${nSer} série${nSer>1?'s':''} ativa${nSer>1?'s':''}</strong>: ${letrasAtivas} &nbsp;·&nbsp; `+
-    `<strong>${ccb.nCCB}</strong> CCB${ccb.nCCB>1?'s':''} de <strong>${fmt(ccb.valorCCB)}</strong> por série &nbsp;·&nbsp; `+
-    `Total: <strong>${totalCCBs} CCBs</strong> &nbsp;·&nbsp; Total da operação: <strong>${fmt(totalOp)}</strong>`;
+  g('serieHint').innerHTML=`<strong>${nSer} série${nSer>1?'s':''}</strong>: ${serAtivas.map(s=>s.letra+' ('+s.meses+'m)').join(' · ')} &nbsp;·&nbsp; <strong>${ccb.n}</strong> CCBs de <strong>${fmt(ccb.vCCB)}</strong> por série &nbsp;·&nbsp; Total: <strong>${totCCBs} CCBs</strong> — <strong>${fmt(totalOp)}</strong>`;
 
-  // Hero pills
-  s('hCr',    fmtS(crePorSerie));
-  s('hTot',   fmtS(totalOp));
-  s('hCCB',   totalCCBs+' CCBs');
-  s('hPrazo', prazo+'m');
+  // Hero
+  s('hCr',fmtS(cre)); s('hTot',fmtS(totalOp)); s('hCCB',totCCBs+' CCBs'); s('hPrazo',prazo+'m');
 
   rowsM=[]; rowsA=[];
-
-  // Juros sobre saldo decrescente — amortiza no vencimento de cada série
   let sal=totalOp, tj=0;
   for(let m=1;m<=prazo;m++){
-    const jrs  = sal * tx;
-    const serIdx = Math.floor((m-1)/12); // 0=série A, 1=série B...
-    const isA  = (m % 12 === 0);
-    const amrt = isA ? crePorSerie : 0;
-    tj += jrs;
-    sal -= amrt; if(sal<0) sal=0;
+    const jrs=sal*tx, isA=(m%12===0), amrt=isA?cre:0;
+    tj+=jrs; sal-=amrt; if(sal<0)sal=0;
     const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
-    rowsM.push({p:m, dt:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:jrs+amrt, s:sal, isA, serIdx});
+    rowsM.push({p:m,dt:dv.toLocaleDateString('pt-BR'),j:jrs,a:amrt,t:jrs+amrt,s:sal,isA,si:Math.floor((m-1)/12)});
   }
-
   for(let an=0;an<nSer;an++){
     let sJ=0,sA=0,sT=0;
-    for(let m=an*12;m<(an+1)*12;m++){
-      if(rowsM[m]){ sJ+=rowsM[m].j; sA+=rowsM[m].a; sT+=rowsM[m].t; }
-    }
-    rowsA.push({an, letra:SERIES_DEF[an].letra, meses:SERIES_DEF[an].meses, j:sJ, a:sA, t:sT, s:rowsM[(an+1)*12-1]?.s||0});
+    for(let m=an*12;m<(an+1)*12;m++) if(rowsM[m]){sJ+=rowsM[m].j;sA+=rowsM[m].a;sT+=rowsM[m].t;}
+    rowsA.push({an,letra:SERIES_DEF[an].letra,meses:SERIES_DEF[an].meses,j:sJ,a:sA,t:sT,s:rowsM[(an+1)*12-1]?.s||0});
   }
 
-  // Juros do 1º mês
-  const jMes1 = totalOp * tx;
+  const jM1=totalOp*tx;
+  s('sCrS',fmt(cre));       s('sCrSSub',ccb.n+' CCBs × '+fmt(ccb.vCCB));
+  s('sTotOp',fmt(totalOp)); s('sTotOpSub',nSer+' série'+(nSer>1?'s':''));
+  s('sCuV',fmt(cuTot));     s('sCuS',fmtP(cu*100)+' sobre o total');
+  s('sLi',fmt(liq));
+  s('sPa',fmt(jM1));
+  s('sCCBSer',ccb.n+'');
+  s('sCCBTot',totCCBs+'');  s('sCCBTotSub',nSer+' séries × '+ccb.n);
+  s('sTj',fmt(tj));
+  s('sTp',fmt(totalOp+tj+cuTot));
+  s('sLv',ltv.toFixed(2)+'%');
+  s('sCe',fmtP(cet*100)+' a.m.'); s('sCeS',fmtP(cetA)+' a.a.');
 
-  // Summary
-  s('sCrS',    fmt(crePorSerie));    s('sCrSSub',    ccb.nCCB+' CCBs × '+fmt(ccb.valorCCB));
-  s('sTotOp',  fmt(totalOp));        s('sTotOpSub',  nSer+' série'+(nSer>1?'s':''));
-  s('sCuV',    fmt(cuTot));          s('sCuS',       fmtP(cu*100)+' sobre o total');
-  s('sLi',     fmt(liqTot));
-  s('sPa',     fmt(jMes1));
-  s('sCCBSer', ccb.nCCB+'');
-  s('sCCBTot', totalCCBs+'');        s('sCCBTotSub', nSer+' séries × '+ccb.nCCB);
-  s('sTj',     fmt(tj));
-  s('sTp',     fmt(totalOp+tj+cuTot));
-  s('sLv',     ltv.toFixed(2)+'%');
-  s('sCe',     fmtP(cet*100)+' a.m.'); s('sCeS', fmtP(cetA)+' a.a.');
-  s('tagM',    'Juros Mensais + Amort. por Série');
+  const serDesc=serAtivas.map(sr=>`Série ${sr.letra} em <strong>${sr.meses} meses</strong>`).join(', ');
+  s('c1',`A CONTRATADA compromete-se a encomendar e endossar <strong>${totCCBs} CCBs</strong> individuais de <strong>${fmt(ccb.vCCB)}</strong> cada, totalizando <strong>${fmt(totalOp)}</strong>, em <strong>${nSer} série${nSer>1?'s':''}</strong> de <strong>${ccb.n} CCB${ccb.n>1?'s':''} cada</strong>, na modalidade Capital de Giro — Operação de Recebíveis.`);
+  s('c2',`O principal de cada série (<strong>${fmt(cre)}</strong>) será amortizado no vencimento: ${serDesc}.`);
+  s('c3',`Juros de <strong>${fmtP(tx*100)} ao mês</strong> sobre o saldo devedor remanescente. Saldo inicial: <strong>${fmt(totalOp)}</strong>, reduz em <strong>${fmt(cre)}</strong> a cada amortização.`);
+  s('c4',`Parcela de juros do 1º mês: <strong>${fmt(jM1)}</strong>${nSer>1?' — decresce após cada amortização de série':''}.`);
 
-  // Cláusulas
-  const serDesc = seriesAtivas.map((sr,i)=>`Série ${sr.letra} em <strong>${sr.meses} meses</strong>`).join(', ');
-  s('c1',`A CONTRATADA compromete-se a encomendar e endossar <strong>${totalCCBs} Cédulas de Crédito Bancário ("CCB")</strong>, individuais, no valor de <strong>${fmt(ccb.valorCCB)}</strong> cada, totalizando <strong>${fmt(totalOp)}</strong>, distribuídas em <strong>${nSer} série${nSer>1?'s':''}</strong> de <strong>${ccb.nCCB} CCB${ccb.nCCB>1?'s':''} cada</strong>, emitidas na modalidade Capital de Giro — Operação de Recebíveis.`);
-  s('c2',`O principal de cada série (<strong>${fmt(crePorSerie)}</strong>) será amortizado integralmente no vencimento da respectiva série: ${serDesc}.`);
-  s('c3',`Sobre o saldo devedor remanescente incidirão <strong>juros de ${fmtP(tx*100)} ao mês</strong>. O saldo inicial é <strong>${fmt(totalOp)}</strong>, reduzindo-se em <strong>${fmt(crePorSerie)}</strong> a cada amortização de série.`);
-  s('c4',`A parcela de juros do 1º mês é <strong>${fmt(jMes1)}</strong>${nSer>1?' e decresce após cada amortização de série':''}.`);
-
-  // Tabela de séries
   let h='';
-  seriesAtivas.forEach((ser,i)=>{
-    const saldoInicio = totalOp - (i * crePorSerie);
-    const jMesSerie   = saldoInicio * tx;
-    h+=`<tr>
-      <td><strong>${ser.letra}</strong></td>
-      <td>${ccb.nCCB} CCB${ccb.nCCB>1?'s':''}</td>
-      <td>${fmt(ccb.valorCCB)}</td>
-      <td><strong>${fmt(crePorSerie)}</strong></td>
-      <td>${ser.meses} meses</td>
-      <td>${fmt(jMesSerie)}/mês</td>
-      <td><strong>${fmt(crePorSerie)}</strong></td>
-    </tr>`;
+  serAtivas.forEach((ser,i)=>{
+    const sal0=totalOp-i*cre;
+    h+=`<tr><td><strong>${ser.letra}</strong></td><td>${ccb.n} CCB${ccb.n>1?'s':''}</td><td>${fmt(ccb.vCCB)}</td><td><strong>${fmt(cre)}</strong></td><td>${ser.meses} meses</td><td>${fmt(sal0*tx)}/mês</td><td><strong>${fmt(cre)}</strong></td></tr>`;
   });
-  s('sTb', h);
-  s('sTf', `<tr style="background:var(--navy)">
-    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">TOTAL</td>
-    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">${totalCCBs} CCBs</td>
-    <td style="color:rgba(255,255,255,.4);padding:9px 14px">${fmt(ccb.valorCCB)}</td>
-    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">${fmt(totalOp)}</td>
-    <td style="color:rgba(255,255,255,.4);padding:9px 14px">—</td>
-    <td style="color:rgba(255,255,255,.4);padding:9px 14px;font-size:10px">decrescente</td>
-    <td style="color:var(--gold2);padding:9px 14px;font-weight:700">${fmt(totalOp)}</td>
-  </tr>`);
-
-  s('c6g', fmt(con));
-  s('c6l', ltv.toFixed(2)+'%');
+  s('sTb',h);
+  s('sTf',`<tr style="background:var(--navy)"><td style="color:var(--gold2);padding:9px 14px;font-weight:700">TOTAL</td><td style="color:var(--gold2);padding:9px 14px;font-weight:700">${totCCBs} CCBs</td><td style="color:rgba(255,255,255,.4);padding:9px 14px">${fmt(ccb.vCCB)}</td><td style="color:var(--gold2);padding:9px 14px;font-weight:700">${fmt(totalOp)}</td><td style="color:rgba(255,255,255,.4);padding:9px 14px">—</td><td style="color:rgba(255,255,255,.4);padding:9px 14px;font-size:10px">decrescente</td><td style="color:var(--gold2);padding:9px 14px;font-weight:700">${fmt(totalOp)}</td></tr>`);
+  s('c6g',fmt(con)); s('c6l',ltv.toFixed(2)+'%');
   renderT();
 }
 
 // ══════════════════════════════════════════
-//  RENDER TABELA
+//  TABELA
 // ══════════════════════════════════════════
 function renderT(){
-  const th=g('mTh'), tb=g('mTb');
+  const th=g('mTh'),tb=g('mTb');
   if(vwMode==='m'){
-    th.innerHTML=`<tr>
-      <th style="text-align:left">Parcela</th>
-      <th style="text-align:left">Série</th>
-      <th>Data</th><th>Juros</th><th>Amortização</th><th>Total</th><th>Saldo Devedor</th>
-    </tr>`;
-    tb.innerHTML=rowsM.map(r=>`<tr class="${r.isA?'ra':''}">
-      <td>${String(r.p).padStart(3,'0')}${r.isA?'<span class="ba">AMORT</span>':''}</td>
-      <td style="font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold3)">${SERIES_DEF[r.serIdx]?.letra||'—'}</td>
-      <td style="text-align:right">${r.dt}</td>
-      <td class="cj">${fmt(r.j)}</td>
-      <td class="ca">${r.a>0?fmt(r.a):'<span style="color:#CBD2DC">—</span>'}</td>
-      <td class="ct">${fmt(r.t)}</td>
-      <td>${fmt(r.s)}</td>
-    </tr>`).join('');
+    th.innerHTML=`<tr><th style="text-align:left">Parcela</th><th style="text-align:left">Série</th><th>Data</th><th>Juros</th><th>Amortização</th><th>Total</th><th>Saldo Devedor</th></tr>`;
+    tb.innerHTML=rowsM.map(r=>`<tr class="${r.isA?'ra':''}"><td>${String(r.p).padStart(3,'0')}${r.isA?'<span class="ba">AMORT</span>':''}</td><td style="font-family:'Montserrat',sans-serif;font-weight:700;color:var(--gold3)">${SERIES_DEF[r.si]?.letra||'—'}</td><td style="text-align:right">${r.dt}</td><td class="cj">${fmt(r.j)}</td><td class="ca">${r.a>0?fmt(r.a):'<span style="color:#CBD2DC">—</span>'}</td><td class="ct">${fmt(r.t)}</td><td>${fmt(r.s)}</td></tr>`).join('');
   } else {
-    th.innerHTML=`<tr>
-      <th style="text-align:left">Série</th>
-      <th>CCBs</th><th>Juros Acumulados</th><th>Amortização</th><th>Total Pago</th><th>Saldo Devedor</th>
-    </tr>`;
+    th.innerHTML=`<tr><th style="text-align:left">Série</th><th>CCBs</th><th>Juros Acumulados</th><th>Amortização</th><th>Total Pago</th><th>Saldo Devedor</th></tr>`;
     const ccb=calcCCBs(V.cre);
-    tb.innerHTML=rowsA.map(r=>`<tr class="ra">
-      <td>Série ${r.letra} — ${r.meses} meses</td>
-      <td style="text-align:right;color:var(--gold3);font-weight:600">${ccb.nCCB} CCBs</td>
-      <td class="cj">${fmt(r.j)}</td>
-      <td class="ca">${fmt(r.a)}</td>
-      <td class="ct">${fmt(r.t)}</td>
-      <td>${fmt(r.s)}</td>
-    </tr>`).join('');
+    tb.innerHTML=rowsA.map(r=>`<tr class="ra"><td>Série ${r.letra} — ${r.meses} meses</td><td style="text-align:right;color:var(--gold3);font-weight:600">${ccb.n} CCBs</td><td class="cj">${fmt(r.j)}</td><td class="ca">${fmt(r.a)}</td><td class="ct">${fmt(r.t)}</td><td>${fmt(r.s)}</td></tr>`).join('');
   }
 }
 
 // ══════════════════════════════════════════
 //  ENVIO
 // ══════════════════════════════════════════
-function montarPayload(){
-  const tx=parseFloat(g('rTx').value), cu=parseFloat(g('rCu').value);
-  const totalOp=V.cre*nSer;
-  const ccb=calcCCBs(V.cre);
-  const seriesAtivas=SERIES_DEF.slice(0,nSer).map(s=>s.letra+' ('+s.meses+'m)').join(', ');
-  return {
-    tipo:'simulacao',
-    data:hoje.toLocaleDateString('pt-BR'),
-    indicador_nome:   ind?.nome   ||'—',
-    indicador_codigo: ind?.codigo ||'—',
-    indicador_whats:  ind?.whats  ||'—',
-    indicador_email:  ind?.email  ||'—',
-    cliente_nome:     g('cliNm').value  ||'—',
-    cliente_doc:      g('cliDoc').value ||'—',
-    cliente_segmento: g('cliSeg').value ||'—',
-    cliente_cidade:   g('cliCid').value ||'—',
-    contratos:        fmt(V.con),
-    credito_por_serie:fmt(V.cre),
-    total_operacao:   fmt(totalOp),
-    series:           nSer,
-    series_desc:      seriesAtivas,
-    ccbs_por_serie:   ccb.nCCB,
-    valor_por_ccb:    fmt(ccb.valorCCB),
-    total_ccbs:       ccb.nCCB*nSer,
-    taxa_mensal:      fmtP(tx),
-    juros_mes1:       fmt(totalOp*(tx/100)),
-    custo_pct:        fmtP(cu),
-    custo_val:        fmt(totalOp*cu),
-    liquido_total:    fmt(totalOp-totalOp*cu),
-    ltv:              (totalOp/V.con*100).toFixed(2)+'%',
-    modelo:           'Juros Mensais + Amortização por Série'
-  };
-}
-
 async function enviarParaSheets(dados){
-  try{
-    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(dados)});
-    return true;
-  }catch(e){ console.error('Apps Script:',e); return false; }
+  try{ await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(dados)}); return true; }
+  catch(e){ return false; }
 }
 
 async function enviar(){
@@ -809,15 +787,35 @@ async function enviar(){
     msg.textContent='⚠ Preencha o nome do cliente antes de enviar.'; return;
   }
   btn.disabled=true; btn.textContent='Enviando...'; msg.style.display='none';
-  const ok=await enviarParaSheets(montarPayload());
+  const tx=parseFloat(g('rTx').value), cu=parseFloat(g('rCu').value);
+  const ccb=calcCCBs(V.cre), totalOp=V.cre*nSer;
+  const ok=await enviarParaSheets({
+    tipo:'simulacao', data:hoje.toLocaleDateString('pt-BR'),
+    indicador_nome:   ind?.nome||'—',
+    indicador_tag:    ind?.tag||'—',
+    indicador_email:  ind?.email||'—',
+    indicador_whats:  ind?.whats||'—',
+    cliente_nome:     g('cliNm').value||'—',
+    cliente_doc:      g('cliDoc').value||'—',
+    cliente_segmento: g('cliSeg').value||'—',
+    cliente_cidade:   g('cliCid').value||'—',
+    contratos:        fmt(V.con),
+    credito_por_serie:fmt(V.cre),
+    total_operacao:   fmt(totalOp),
+    series:           nSer,
+    series_desc:      SERIES_DEF.slice(0,nSer).map(s=>s.letra+'('+s.meses+'m)').join('+'),
+    ccbs_por_serie:   ccb.n,
+    valor_ccb:        fmt(ccb.vCCB),
+    total_ccbs:       ccb.n*nSer,
+    taxa_mensal:      fmtP(tx),
+    juros_mes1:       fmt(totalOp*(tx/100)),
+    custo_pct:        fmtP(cu),
+    ltv:              (totalOp/V.con*100).toFixed(2)+'%',
+  });
   btn.disabled=false; btn.textContent='✉ Enviar Simulação';
-  if(ok){
-    msg.className='ss-msg ok'; msg.style.display='block';
-    msg.textContent='✅ Simulação enviada! Planilha atualizada e e-mail disparado.';
-  } else {
-    msg.className='ss-msg er'; msg.style.display='block';
-    msg.textContent='❌ Falha ao enviar. Verifique sua conexão.';
-  }
+  msg.className=ok?'ss-msg ok':'ss-msg er';
+  msg.style.display='block';
+  msg.textContent=ok?'✅ Simulação enviada! Planilha atualizada e e-mail disparado.':'❌ Falha ao enviar. Verifique sua conexão.';
 }
 
 // Init
