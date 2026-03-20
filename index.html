@@ -6,1158 +6,617 @@
 <title>Simulador de Crédito — Finance X Capital</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy:    #0D1B2E;
-    --navy2:   #162338;
-    --navy3:   #1E2F47;
-    --gold:    #C9A84C;
-    --gold2:   #E8C97A;
-    --gold3:   #A07830;
-    --white:   #FFFFFF;
-    --off:     #F7F8FA;
-    --border:  #E2E6ED;
-    --border2: #CBD2DC;
-    --text:    #1A2535;
-    --muted:   #6B7A92;
-    --light:   #8FA0B8;
-    --green:   #1A8A50;
-    --blue:    #1E5FA8;
-    --red:     #C0392B;
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; }
-
-  body {
-    background: var(--off);
-    color: var(--text);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  /* ── TOP BAR ── */
-  .topbar {
-    background: var(--navy);
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px rgba(13,27,46,0.18);
-  }
-
-  .topbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  /* Logo SVG inline */
-  .logo-icon {
-    width: 36px; height: 36px;
-  }
-
-  .topbar-brand {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 17px;
-    color: var(--white);
-    letter-spacing: -0.3px;
-  }
-
-  .topbar-brand span { color: var(--gold); }
-
-  .topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .topbar-tag {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    background: rgba(201,168,76,0.12);
-    border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 4px;
-    padding: 4px 10px;
-  }
-
-  .topbar-date {
-    font-size: 12px;
-    color: rgba(255,255,255,0.45);
-  }
-
-  /* ── HERO STRIP ── */
-  .hero {
-    background: linear-gradient(105deg, var(--navy) 0%, var(--navy2) 55%, var(--navy3) 100%);
-    padding: 36px 40px 32px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    right: -60px; top: -60px;
-    width: 320px; height: 320px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .hero-left h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 8px;
-  }
-
-  .hero-left h1 span { color: var(--gold2); }
-
-  .hero-left p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    max-width: 400px;
-  }
-
-  .hero-pills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .pill {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 6px;
-    padding: 8px 14px;
-    text-align: center;
-  }
-
-  .pill-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 2px;
-  }
-
-  .pill-value {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  /* ── WRAPPER ── */
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 32px 20px 80px;
-  }
-
-  /* ── SECTION LABEL ── */
-  .sec-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold3);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .sec-label::before {
-    content: '';
-    width: 18px;
-    height: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  /* ── CARD BASE ── */
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(13,27,46,0.06);
-  }
-
-  /* ── CONTROLS ── */
-  .controls-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .ctrl {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 18px;
-    transition: border-color .2s, box-shadow .2s;
-  }
-
-  .ctrl:hover {
-    border-color: var(--gold);
-    box-shadow: 0 2px 8px rgba(201,168,76,0.12);
-  }
-
-  .ctrl-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
-  .ctrl-input-row {
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
-  }
-
-  .ctrl-prefix {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-  }
-
-  .ctrl input[type="number"],
-  .ctrl select {
-    border: none;
-    outline: none;
-    background: transparent;
-    color: var(--text);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    width: 100%;
-  }
-
-  .ctrl select { font-size: 13px; cursor: pointer; }
-
-  .ctrl-val {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 8px;
-  }
-
-  .ctrl input[type="range"] {
-    width: 100%;
-    height: 4px;
-    accent-color: var(--gold);
-    cursor: pointer;
-    margin-top: 4px;
-  }
-
-  .range-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 9px;
-    color: var(--light);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    margin-top: 5px;
-  }
-
-  /* ── SUMMARY ── */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .sum-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 18px;
-    position: relative;
-  }
-
-  .sum-card.featured {
-    background: var(--navy);
-    border-color: var(--navy);
-  }
-
-  .sum-card.gold-card {
-    border-color: var(--gold);
-    background: linear-gradient(135deg, #FFFBF0, #FFF8E6);
-  }
-
-  .sum-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 18px; right: 18px;
-    height: 2px;
-    background: var(--gold);
-    border-radius: 2px;
-    opacity: 0.3;
-  }
-
-  .sum-card.featured::after { opacity: 0.7; }
-
-  .sum-label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-
-  .sum-card.featured .sum-label { color: rgba(255,255,255,0.5); }
-  .sum-card.gold-card .sum-label { color: var(--gold3); }
-
-  .sum-val {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--navy);
-    line-height: 1.1;
-  }
-
-  .sum-card.featured .sum-val { color: var(--gold2); }
-  .sum-card.gold-card .sum-val { color: var(--navy); }
-
-  .sum-sub {
-    font-size: 10px;
-    color: var(--light);
-    margin-top: 3px;
-  }
-
-  .sum-card.featured .sum-sub { color: rgba(255,255,255,0.35); }
-
-  /* ── TERMOS ── */
-  .termos-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 28px;
-    overflow: hidden;
-  }
-
-  .termos-header {
-    background: var(--navy);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .termos-header h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  .termos-header .tag-op {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--gold);
-    background: rgba(201,168,76,0.15);
-    border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 4px;
-    padding: 3px 8px;
-    text-transform: uppercase;
-  }
-
-  .termos-body {
-    padding: 24px;
-  }
-
-  .clausula {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .clausula:last-child { border-bottom: none; }
-
-  .clausula-num {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold3);
-    margin-bottom: 6px;
-  }
-
-  .clausula p {
-    font-size: 13px;
-    color: #3A4A5E;
-    line-height: 1.75;
-  }
-
-  .clausula p strong { color: var(--navy); font-weight: 600; }
-
-  /* series table */
-  .series-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 14px;
-    font-size: 12px;
-  }
-
-  .series-table thead tr {
-    background: var(--navy);
-  }
-
-  .series-table thead th {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold2);
-    padding: 10px 14px;
-    text-align: left;
-  }
-
-  .series-table tbody tr:nth-child(even) { background: var(--off); }
-
-  .series-table tbody td {
-    padding: 10px 14px;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .series-table tbody td:first-child {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    color: var(--navy);
-  }
-
-  .series-table tbody td strong { color: var(--navy); font-weight: 600; }
-
-  /* ── CRONOGRAMA TABLE ── */
-  .table-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 28px;
-  }
-
-  .table-topbar {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .table-topbar h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-
-  .toggle-group {
-    display: flex;
-    background: var(--off);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .tog-btn {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 7px 16px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all .2s;
-  }
-
-  .tog-btn.active {
-    background: var(--navy);
-    color: var(--gold2);
-  }
-
-  .table-scroll { overflow-x: auto; }
-
-  table.main-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
-
-  table.main-table thead th {
-    background: var(--off);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 11px 14px;
-    text-align: right;
-    border-bottom: 2px solid var(--border);
-    white-space: nowrap;
-  }
-
-  table.main-table thead th:first-child { text-align: left; }
-
-  table.main-table tbody tr:hover { background: #F0F4FF; }
-
-  table.main-table tbody tr.row-amort {
-    background: #F0FBF5;
-  }
-
-  table.main-table tbody td {
-    padding: 10px 14px;
-    text-align: right;
-    border-bottom: 1px solid #F0F2F6;
-    color: var(--muted);
-    white-space: nowrap;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  table.main-table tbody td:first-child {
-    text-align: left;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    color: var(--navy);
-  }
-
-  td.c-juros  { color: var(--blue); font-weight: 500; }
-  td.c-amort  { color: var(--green); font-weight: 500; }
-  td.c-total  { color: var(--navy); font-weight: 700; }
-  td.c-saldo  { color: var(--text); }
-
-  .badge-amort {
-    display: inline-block;
-    background: #E8F6EE;
-    color: var(--green);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    border-radius: 3px;
-    padding: 2px 5px;
-    margin-left: 5px;
-    vertical-align: middle;
-  }
-
-  /* Table footer */
-  .table-footer {
-    background: var(--off);
-    border-top: 1px solid var(--border);
-    padding: 12px 20px;
-    font-size: 10px;
-    color: var(--light);
-    line-height: 1.7;
-  }
-
-  /* ── ACTIONS ── */
-  .actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-
-  .btn-primary {
-    background: var(--navy);
-    color: var(--gold2);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 13px 28px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: opacity .2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-primary:hover { opacity: 0.88; }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--navy);
-    border: 1.5px solid var(--navy);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 13px 28px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all .2s;
-  }
-
-  .btn-secondary:hover {
-    background: var(--navy);
-    color: var(--gold2);
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy);
-    padding: 28px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  footer .f-brand {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--white);
-  }
-
-  footer .f-brand span { color: var(--gold); }
-
-  footer p {
-    font-size: 11px;
-    color: rgba(255,255,255,0.4);
-  }
-
-  footer .f-cnpj {
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-  }
-
-  /* ── PRINT ── */
-  @media print {
-    .topbar, .actions { display: none; }
-    .page { padding: 0; }
-    body { background: white; }
-  }
-
-  @media (max-width: 640px) {
-    .topbar { padding: 0 16px; }
-    .hero { padding: 24px 16px; }
-    .page { padding: 20px 12px 60px; }
-    footer { padding: 20px 16px; }
-    .hero-left h1 { font-size: 20px; }
-  }
+:root{--navy:#0D1B2E;--navy2:#162338;--navy3:#1E2F47;--gold:#C9A84C;--gold2:#E8C97A;--gold3:#A07830;--white:#FFFFFF;--off:#F7F8FA;--border:#E2E6ED;--text:#1A2535;--muted:#6B7A92;--light:#8FA0B8;--green:#1A8A50;--blue:#1E5FA8;--red:#C0392B;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--off);color:var(--text);font-family:'Open Sans',sans-serif;font-size:14px;line-height:1.5;}
+
+.topbar{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(13,27,46,.2);}
+.topbar-brand{font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#fff;display:flex;align-items:center;gap:10px;}
+.topbar-brand em{color:var(--gold);font-style:normal;}
+.logo-x{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;color:var(--navy);}
+.topbar-right{display:flex;align-items:center;gap:14px;}
+.topbar-tag{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:4px 10px;}
+.topbar-date{font-size:12px;color:rgba(255,255,255,.4);}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(10,15,25,.8);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:460px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.3);}
+.modal-head{background:var(--navy);padding:24px 28px;}
+.modal-head h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:3px;}
+.modal-head h2 em{color:var(--gold);font-style:normal;}
+.modal-head p{font-size:12px;color:rgba(255,255,255,.45);}
+.modal-body{padding:28px;}
+.modal-tabs{display:flex;background:var(--off);border:1px solid var(--border);border-radius:8px;margin-bottom:22px;overflow:hidden;}
+.modal-tab{flex:1;padding:10px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+.modal-tab.active{background:var(--navy);color:var(--gold2);}
+.fg{margin-bottom:14px;}
+.fg label{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.fg input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+.fg input:focus{border-color:var(--gold);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-block{width:100%;padding:14px;border-radius:8px;border:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.btn-block.navy{background:var(--navy);color:var(--gold2);}
+.btn-block.gold{background:var(--gold);color:var(--navy);}
+.btn-block:hover{opacity:.88;}
+.modal-alt{text-align:center;font-size:12px;color:var(--light);margin-top:14px;}
+.modal-alt a{color:var(--blue);cursor:pointer;font-weight:600;}
+.err-box{background:#FEF2F2;border:1px solid #FCA5A5;border-radius:6px;padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:12px;display:none;}
+
+.ind-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 40px;display:none;align-items:center;justify-content:space-between;}
+.ind-info{display:flex;align-items:center;gap:10px;}
+.ind-av{width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--gold2);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.ind-nm{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--navy);}
+.ind-cd{font-size:11px;color:var(--muted);}
+.btn-sair{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:transparent;border:1px solid var(--border);border-radius:6px;padding:6px 12px;color:var(--muted);cursor:pointer;}
+.btn-sair:hover{border-color:var(--red);color:var(--red);}
+
+.hero{background:linear-gradient(105deg,var(--navy) 0%,var(--navy2) 55%,var(--navy3) 100%);padding:30px 40px 26px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.hero-left h1{font-family:'Montserrat',sans-serif;font-size:21px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:4px;}
+.hero-left h1 em{color:var(--gold2);font-style:normal;}
+.hero-left p{font-size:12px;color:rgba(255,255,255,.4);}
+.pills{display:flex;gap:10px;flex-wrap:wrap;}
+.pill{background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:9px 14px;text-align:center;min-width:90px;}
+.pill-l{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.pill-v{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#fff;}
+
+.page{max-width:1100px;margin:0 auto;padding:26px 20px 80px;}
+.sl{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold3);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.sl::before{content:'';width:18px;height:3px;background:var(--gold);border-radius:2px;flex-shrink:0;}
+
+.cli-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+.cli-head{background:var(--navy);padding:13px 20px;display:flex;align-items:center;gap:8px;}
+.cli-head h3{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#fff;}
+.cli-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);}
+.cli-body{padding:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.cf label{display:block;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.cf input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'Open Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;}
+.cf input:focus{border-color:var(--gold);}
+
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:13px;margin-bottom:22px;}
+.ctrl{background:#fff;border:1px solid var(--border);border-radius:10px;padding:15px 17px;transition:border-color .2s,box-shadow .2s;}
+.ctrl:hover{border-color:var(--gold);box-shadow:0 2px 8px rgba(201,168,76,.1);}
+.ctrl-lbl{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.ctrl-val{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;color:var(--navy);}
+.ctrl-val.edit{border:none;outline:none;background:transparent;width:100%;cursor:text;}
+.ctrl-pre{font-size:11px;font-weight:600;color:var(--muted);}
+.ctrl-row{display:flex;align-items:baseline;gap:4px;}
+.ctrl input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;margin-top:6px;}
+.rr{display:flex;justify-content:space-between;font-size:9px;color:var(--light);font-family:'Montserrat',sans-serif;font-weight:600;margin-top:3px;}
+.ss{display:flex;gap:7px;margin-top:4px;}
+.sb{flex:1;padding:7px 3px;border:1.5px solid var(--border);border-radius:8px;background:#fff;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s;text-align:center;}
+.sb:hover{border-color:var(--gold);color:var(--navy);}
+.sb.active{background:var(--navy);border-color:var(--navy);color:var(--gold2);}
+.sb small{display:block;font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:1px;opacity:.7;}
+.ctrl select{border:none;outline:none;background:transparent;color:var(--text);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;width:100%;cursor:pointer;margin-top:4px;}
+
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;margin-bottom:22px;}
+.sc{background:#fff;border:1px solid var(--border);border-radius:10px;padding:15px 17px;position:relative;}
+.sc::after{content:'';position:absolute;bottom:0;left:17px;right:17px;height:2px;background:var(--gold);border-radius:2px;opacity:.2;}
+.sc.feat{background:var(--navy);border-color:var(--navy);}
+.sc.feat::after{opacity:.6;}
+.sc.gld{border-color:var(--gold);background:linear-gradient(135deg,#FFFBF0,#FFF8E6);}
+.sc-lbl{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.sc.feat .sc-lbl{color:rgba(255,255,255,.4);}
+.sc.gld .sc-lbl{color:var(--gold3);}
+.sc-val{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;color:var(--navy);}
+.sc.feat .sc-val{color:var(--gold2);}
+.sc-sub{font-size:10px;color:var(--light);margin-top:2px;}
+.sc.feat .sc-sub{color:rgba(255,255,255,.28);}
+
+.tc{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+.th{background:var(--navy);padding:13px 22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.th h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#fff;}
+.tag-op{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:3px 8px;text-transform:uppercase;}
+.tb-body{padding:22px;}
+.cl{padding:11px 0;border-bottom:1px solid var(--border);}
+.cl:last-child{border-bottom:none;}
+.cl-n{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold3);margin-bottom:5px;}
+.cl p{font-size:13px;color:#3A4A5E;line-height:1.75;}
+.cl p strong{color:var(--navy);font-weight:600;}
+.st{width:100%;border-collapse:collapse;margin-top:11px;font-size:12px;}
+.st thead tr{background:var(--navy);}
+.st thead th{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold2);padding:9px 12px;text-align:left;}
+.st tbody tr:nth-child(even){background:var(--off);}
+.st tbody td{padding:9px 12px;color:var(--muted);border-bottom:1px solid var(--border);}
+.st tbody td:first-child{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--navy);}
+.st tbody tr:last-child td{border-bottom:none;}
+
+.tcard{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:22px;}
+.ttop{background:#fff;border-bottom:1px solid var(--border);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ttop h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
+.tg{display:flex;background:var(--off);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.tb2{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+.tb2.active{background:var(--navy);color:var(--gold2);}
+.tscroll{overflow-x:auto;}
+table.mt{width:100%;border-collapse:collapse;font-size:12px;}
+table.mt thead th{background:var(--off);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 13px;text-align:right;border-bottom:2px solid var(--border);white-space:nowrap;}
+table.mt thead th:first-child{text-align:left;}
+table.mt tbody tr:hover{background:#F0F4FF;}
+table.mt tbody tr.ra{background:#F0FBF5;}
+table.mt tbody td{padding:9px 13px;text-align:right;border-bottom:1px solid #F0F2F6;color:var(--muted);white-space:nowrap;}
+table.mt tbody td:first-child{text-align:left;font-family:'Montserrat',sans-serif;font-weight:600;color:var(--navy);}
+td.cj{color:var(--blue);font-weight:500;}
+td.ca{color:var(--green);font-weight:500;}
+td.ct{color:var(--navy);font-weight:700;}
+.ba{display:inline-block;background:#E8F6EE;color:var(--green);font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:1px;border-radius:3px;padding:2px 5px;margin-left:4px;vertical-align:middle;}
+.tfoot{background:var(--off);border-top:1px solid var(--border);padding:11px 18px;font-size:10px;color:var(--light);line-height:1.7;}
+
+.sp{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+.sp h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.sp p{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.sa{display:flex;gap:11px;flex-wrap:wrap;}
+.btn-s{display:flex;align-items:center;gap:7px;padding:12px 22px;border-radius:8px;border:none;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-s.p{background:var(--navy);color:var(--gold2);}
+.btn-s.p:hover{opacity:.88;}
+.btn-s.o{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+.btn-s.o:hover{background:var(--navy);color:var(--gold2);}
+.btn-s:disabled{opacity:.45;cursor:not-allowed;}
+.ss-msg{margin-top:13px;padding:11px 15px;border-radius:8px;font-size:12px;font-weight:600;display:none;}
+.ss-msg.ok{background:#F0FBF5;border:1px solid #A7F3C8;color:var(--green);}
+.ss-msg.er{background:#FEF2F2;border:1px solid #FCA5A5;color:var(--red);}
+
+/* Config banner */
+.cfg-banner{background:#FFF8E6;border:1px solid var(--gold);border-radius:10px;padding:14px 18px;margin-bottom:22px;font-size:12px;color:#7A5A10;display:none;}
+.cfg-banner strong{color:var(--navy);}
+
+footer{background:var(--navy);padding:26px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.fb{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;color:#fff;}
+.fb em{color:var(--gold);font-style:normal;}
+footer p{font-size:11px;color:rgba(255,255,255,.3);}
+
+@media(max-width:640px){.topbar,.ind-bar{padding:0 14px;}.hero{padding:22px 14px;}.page{padding:18px 12px 60px;}footer{padding:18px 14px;}}
+@media print{.topbar,.ind-bar,.sp,.cfg-banner,footer{display:none!important;}body{background:#fff;}.page{padding:0;}}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-logo">
-    <!-- Finance X "X" mark in gold + navy -->
-    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="36" height="36" rx="7" fill="#C9A84C"/>
-      <text x="5" y="27" font-family="Montserrat,sans-serif" font-weight="900" font-size="24" fill="#0D1B2E">X</text>
-    </svg>
-    <div>
-      <div class="topbar-brand">Finance <span>X</span> Capital</div>
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOv">
+  <div class="modal">
+    <div class="modal-head"><h2>Finance <em>X</em> Capital</h2><p>Simulador exclusivo para indicadores de negócios</p></div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="swTab('login',this)">Entrar</button>
+        <button class="modal-tab" onclick="swTab('cad',this)">Cadastrar</button>
+      </div>
+      <div id="tLogin">
+        <div class="err-box" id="errLogin">Verifique seu código ou cadastre-se.</div>
+        <div class="fg"><label>Código do Indicador</label><input id="lCod" placeholder="Ex: FX-0001" oninput="this.value=this.value.toUpperCase()"></div>
+        <div class="fg"><label>Seu Nome Completo</label><input id="lNome" placeholder="Nome completo"></div>
+        <button class="btn-block navy" onclick="doLogin()">Entrar no Simulador</button>
+        <div class="modal-alt">Não tem código? <a onclick="swTab('cad',document.querySelectorAll('.modal-tab')[1])">Cadastre-se</a></div>
+      </div>
+      <div id="tCad" style="display:none">
+        <div class="err-box" id="errCad">Preencha todos os campos obrigatórios.</div>
+        <div class="frow">
+          <div class="fg"><label>Nome Completo *</label><input id="cNome" placeholder="Seu nome"></div>
+          <div class="fg"><label>WhatsApp *</label><input id="cWhats" placeholder="(11) 99999-9999"></div>
+        </div>
+        <div class="fg"><label>E-mail *</label><input id="cEmail" type="email" placeholder="seu@email.com"></div>
+        <div class="frow">
+          <div class="fg"><label>CPF / CNPJ</label><input id="cDoc" placeholder="000.000.000-00"></div>
+          <div class="fg"><label>Cidade / Estado</label><input id="cCidade" placeholder="São Paulo - SP"></div>
+        </div>
+        <button class="btn-block gold" onclick="doCad()">Criar Meu Acesso</button>
+        <div class="modal-alt">Já tem código? <a onclick="swTab('login',document.querySelectorAll('.modal-tab')[0])">Entrar</a></div>
+      </div>
     </div>
-  </div>
-  <div class="topbar-right">
-    <div class="topbar-tag">Simulador de Crédito</div>
-    <div class="topbar-date" id="topDate"></div>
   </div>
 </div>
 
-<!-- HERO -->
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand"><div class="logo-x">X</div>Finance <em>X</em> Capital</div>
+  <div class="topbar-right"><div class="topbar-tag">Simulador de Crédito</div><div class="topbar-date" id="tDate"></div></div>
+</div>
+
+<div class="ind-bar" id="indBar">
+  <div class="ind-info">
+    <div class="ind-av" id="indAv">?</div>
+    <div><div class="ind-nm" id="indNm">—</div><div class="ind-cd" id="indCd">—</div></div>
+  </div>
+  <button class="btn-sair" onclick="sair()">Sair</button>
+</div>
+
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <h1>Proposta Indicativa de <span>Crédito</span></h1>
-      <p>Operação de Recebíveis — Capital de Giro Corporativo<br>Proposta com validade de <strong style="color:rgba(255,255,255,0.7)">10 dias</strong> a partir da emissão</p>
+      <h1>Proposta Indicativa de <em>Crédito</em></h1>
+      <p>Operação de Recebíveis — Capital de Giro Corporativo &nbsp;|&nbsp; Validade: 10 dias</p>
     </div>
-    <div class="hero-pills">
-      <div class="pill">
-        <div class="pill-label">Contratos</div>
-        <div class="pill-value" id="h_contratos">R$ 14M</div>
-      </div>
-      <div class="pill">
-        <div class="pill-label">Crédito</div>
-        <div class="pill-value" id="h_credito">R$ 2,8M</div>
-      </div>
-      <div class="pill">
-        <div class="pill-label">LTV</div>
-        <div class="pill-value" id="h_ltv">20%</div>
-      </div>
-      <div class="pill">
-        <div class="pill-label">Prazo</div>
-        <div class="pill-value" id="h_prazo">48m</div>
-      </div>
+    <div class="pills">
+      <div class="pill"><div class="pill-l">Contratos</div><div class="pill-v" id="hC">—</div></div>
+      <div class="pill"><div class="pill-l">Crédito</div><div class="pill-v" id="hCr">—</div></div>
+      <div class="pill"><div class="pill-l">LTV</div><div class="pill-v" id="hL">—</div></div>
+      <div class="pill"><div class="pill-l">Séries CCB</div><div class="pill-v" id="hS">—</div></div>
     </div>
   </div>
 </div>
 
-<!-- PAGE -->
 <div class="page">
 
-  <!-- PARAMS -->
-  <div class="sec-label">Parâmetros da Operação</div>
-  <div class="controls-grid">
+  <!-- AVISO CONFIGURAÇÃO -->
+  <div class="cfg-banner" id="cfgBanner">
+    ⚙️ <strong>Configuração pendente:</strong> Cole a URL do Google Apps Script no topo do código (variável <code>APPS_SCRIPT_URL</code>) para ativar o envio de e-mail e registro na planilha.
+  </div>
 
+  <div class="sl">Dados do Cliente</div>
+  <div class="cli-card">
+    <div class="cli-head"><div class="cli-dot"></div><h3>Identificação do Proponente</h3></div>
+    <div class="cli-body">
+      <div class="cf"><label>Nome / Razão Social *</label><input id="cliNm" placeholder="Nome completo ou empresa"></div>
+      <div class="cf"><label>CPF / CNPJ *</label><input id="cliDoc" placeholder="00.000.000/0001-00" oninput="mascDoc(this)"></div>
+      <div class="cf"><label>Segmento / Ramo</label><input id="cliSeg" placeholder="Ex: Construção Civil"></div>
+      <div class="cf"><label>Cidade / Estado</label><input id="cliCid" placeholder="São Paulo - SP"></div>
+    </div>
+  </div>
+
+  <div class="sl">Parâmetros da Operação</div>
+  <div class="cg">
     <div class="ctrl">
-      <div class="ctrl-label">Contratos em Carteira</div>
-      <div class="ctrl-input-row">
-        <span class="ctrl-prefix">R$</span>
-        <input type="number" id="contratos" value="14000000" step="100000" onchange="calcular()">
+      <div class="ctrl-lbl">Contratos em Carteira</div>
+      <div class="ctrl-row"><span class="ctrl-pre">R$</span><input class="ctrl-val edit" id="iCon" type="text" value="14.000.000,00" onblur="pi('con');calc()" onkeydown="if(event.key==='Enter'){pi('con');calc();}"></div>
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-lbl">Crédito Solicitado</div>
+      <div class="ctrl-row"><span class="ctrl-pre">R$</span><input class="ctrl-val edit" id="iCre" type="text" value="2.800.000,00" onblur="pi('cre');calc()" onkeydown="if(event.key==='Enter'){pi('cre');calc();}"></div>
+    </div>
+    <div class="ctrl">
+      <div class="ctrl-lbl">Número de Séries de CCB</div>
+      <div class="ss">
+        <button class="sb" onclick="setSer(1,this)">1<small>série</small></button>
+        <button class="sb" onclick="setSer(2,this)">2<small>séries</small></button>
+        <button class="sb" onclick="setSer(3,this)">3<small>séries</small></button>
+        <button class="sb active" onclick="setSer(4,this)">4<small>séries</small></button>
       </div>
     </div>
-
     <div class="ctrl">
-      <div class="ctrl-label">Crédito Solicitado</div>
-      <div class="ctrl-input-row">
-        <span class="ctrl-prefix">R$</span>
-        <input type="number" id="credito" value="2800000" step="50000" onchange="calcular()">
-      </div>
+      <div class="ctrl-lbl">Taxa Mensal (% a.m.)</div>
+      <div class="ctrl-val" id="dTx">2,76%</div>
+      <input type="range" id="rTx" min="1.5" max="4.0" step="0.01" value="2.76" oninput="uTx();calc()">
+      <div class="rr"><span>1,5%</span><span>2,5%</span><span>3,5%</span><span>4%</span></div>
     </div>
-
     <div class="ctrl">
-      <div class="ctrl-label">Prazo (meses)</div>
-      <div class="ctrl-val" id="prazoDisplay">48 meses</div>
-      <input type="range" id="prazo" min="12" max="48" step="12" value="48" oninput="upPrazo();calcular()">
-      <div class="range-row"><span>12m</span><span>24m</span><span>36m</span><span>48m</span></div>
+      <div class="ctrl-lbl">Custo Inicial (IOF + TGC)</div>
+      <div class="ctrl-val" id="dCu">8,38%</div>
+      <input type="range" id="rCu" min="0" max="15" step="0.01" value="8.38" oninput="uCu();calc()">
+      <div class="rr"><span>0%</span><span>5%</span><span>10%</span><span>15%</span></div>
     </div>
-
     <div class="ctrl">
-      <div class="ctrl-label">Taxa Mensal (% a.m.)</div>
-      <div class="ctrl-val" id="taxaDisplay">2,76%</div>
-      <input type="range" id="taxa" min="1.5" max="4.0" step="0.01" value="2.76" oninput="upTaxa();calcular()">
-      <div class="range-row"><span>1,5%</span><span>2,5%</span><span>3,5%</span><span>4%</span></div>
-    </div>
-
-    <div class="ctrl">
-      <div class="ctrl-label">Custo Inicial (IOF + TGC)</div>
-      <div class="ctrl-val" id="custoDisplay">8,38%</div>
-      <input type="range" id="custo" min="0" max="15" step="0.01" value="8.38" oninput="upCusto();calcular()">
-      <div class="range-row"><span>0%</span><span>5%</span><span>10%</span><span>15%</span></div>
-    </div>
-
-    <div class="ctrl">
-      <div class="ctrl-label">Modelo de Pagamento</div>
-      <select id="modelo" onchange="calcular()">
-        <option value="juros_amort">Juros mensais + Amort. anual</option>
-        <option value="price">Tabela PRICE</option>
+      <div class="ctrl-lbl">Modelo de Pagamento</div>
+      <select id="mdl" onchange="calc()">
+        <option value="ja">Juros mensais + Amort. anual</option>
+        <option value="pr">Tabela PRICE</option>
       </select>
     </div>
-
   </div>
 
-  <!-- SUMMARY -->
-  <div class="sec-label">Resumo Financeiro</div>
-  <div class="summary-grid">
-    <div class="sum-card">
-      <div class="sum-label">Crédito Bruto</div>
-      <div class="sum-val" id="s_bruto">—</div>
-      <div class="sum-sub">valor contratado</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-label">Custo Inicial</div>
-      <div class="sum-val" id="s_custo_val">—</div>
-      <div class="sum-sub" id="s_custo_sub">IOF + TGC</div>
-    </div>
-    <div class="sum-card gold-card">
-      <div class="sum-label">Crédito Líquido</div>
-      <div class="sum-val" id="s_liquido">—</div>
-      <div class="sum-sub">após descontos iniciais</div>
-    </div>
-    <div class="sum-card featured">
-      <div class="sum-label">Parcela Mensal</div>
-      <div class="sum-val" id="s_parcela">—</div>
-      <div class="sum-sub" id="s_parcela_sub">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-label">Amortização Anual</div>
-      <div class="sum-val" id="s_amort">—</div>
-      <div class="sum-sub" id="s_amort_sub">—</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-label">Total de Juros</div>
-      <div class="sum-val" id="s_tjuros">—</div>
-      <div class="sum-sub">no período total</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-label">Total Pago</div>
-      <div class="sum-val" id="s_total">—</div>
-      <div class="sum-sub">principal + juros + custos</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-label">LTV</div>
-      <div class="sum-val" id="s_ltv">—</div>
-      <div class="sum-sub">sobre carteira de recebíveis</div>
-    </div>
-    <div class="sum-card">
-      <div class="sum-label">CET</div>
-      <div class="sum-val" id="s_cet">—</div>
-      <div class="sum-sub" id="s_cet_sub">—</div>
+  <div class="sl">Resumo Financeiro</div>
+  <div class="sg">
+    <div class="sc"><div class="sc-lbl">Crédito Bruto</div><div class="sc-val" id="sBr">—</div><div class="sc-sub">valor contratado</div></div>
+    <div class="sc"><div class="sc-lbl">Custo Inicial</div><div class="sc-val" id="sCu">—</div><div class="sc-sub" id="sCuS">IOF + TGC</div></div>
+    <div class="sc gld"><div class="sc-lbl">Crédito Líquido</div><div class="sc-val" id="sLi">—</div><div class="sc-sub">após descontos</div></div>
+    <div class="sc feat"><div class="sc-lbl">Parcela Mensal Juros</div><div class="sc-val" id="sPa">—</div><div class="sc-sub" id="sPaS">—</div></div>
+    <div class="sc"><div class="sc-lbl">Valor por CCB</div><div class="sc-val" id="sCb">—</div><div class="sc-sub" id="sCbS">—</div></div>
+    <div class="sc"><div class="sc-lbl">Amortização Anual</div><div class="sc-val" id="sAm">—</div><div class="sc-sub" id="sAmS">—</div></div>
+    <div class="sc"><div class="sc-lbl">Total de Juros</div><div class="sc-val" id="sTj">—</div><div class="sc-sub">no período</div></div>
+    <div class="sc"><div class="sc-lbl">Total Pago</div><div class="sc-val" id="sTp">—</div><div class="sc-sub">principal + juros + custos</div></div>
+    <div class="sc"><div class="sc-lbl">LTV</div><div class="sc-val" id="sLv">—</div><div class="sc-sub">sobre carteira</div></div>
+    <div class="sc"><div class="sc-lbl">CET</div><div class="sc-val" id="sCe">—</div><div class="sc-sub" id="sCeS">—</div></div>
+  </div>
+
+  <div class="sl">Cláusulas Contratuais</div>
+  <div class="tc">
+    <div class="th"><h3>Cláusula 1 — Das Características da Emissão</h3><div class="tag-op" id="tagM">Juros Mensais + Amort. Anual</div></div>
+    <div class="tb-body">
+      <div class="cl"><div class="cl-n">Art. 1.1 — Emissão das CCBs</div><p id="c1">—</p></div>
+      <div class="cl"><div class="cl-n">Art. 1.2 — Liquidação do Principal</div><p id="c2">—</p></div>
+      <div class="cl"><div class="cl-n">Art. 1.3 — Juros Remuneratórios</div><p id="c3">—</p></div>
+      <div class="cl"><div class="cl-n">Art. 1.4 — Parcela Mensal de Juros</div><p id="c4">—</p></div>
+      <div class="cl">
+        <div class="cl-n">Art. 1.5 — Cronograma de Séries e Vencimentos</div>
+        <p style="margin-bottom:8px;font-size:13px;color:#3A4A5E">O CONTRATANTE pagará mensalmente a parcela de juros e realizará a amortização anual conforme cronograma:</p>
+        <table class="st"><thead><tr><th>Série</th><th>Nº CCBs</th><th>Valor por CCB</th><th>Principal</th><th>Vencimento</th><th>Juros/mês</th><th>Pgto Vencimento</th></tr></thead><tbody id="sTb"></tbody></table>
+      </div>
+      <div class="cl"><div class="cl-n">Art. 1.6 — Garantia</div><p>Garantida por <strong>cessão fiduciária de recebíveis</strong> no valor estimado de <strong id="c6g">—</strong>, com LTV de <strong id="c6l">—</strong>, condicionada à apresentação de laudo técnico e parecer jurídico aprovados pela CONTRATADA.</p></div>
+      <div class="cl"><div class="cl-n">Art. 1.7 — Validade da Proposta</div><p>Validade de <strong>10 (dez) dias corridos</strong> a partir de <strong id="c7d">—</strong>. Valores estimativos sem valor legal até assinatura do contrato definitivo.</p></div>
     </div>
   </div>
 
-  <!-- TERMOS -->
-  <div class="sec-label">Cláusulas Contratuais</div>
-  <div class="termos-card">
-    <div class="termos-header">
-      <h3>Cláusula 1 — Das Características da Emissão</h3>
-      <div class="tag-op" id="tag_modelo">Juros Mensais + Amort. Anual</div>
-    </div>
-    <div class="termos-body">
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.1 — Emissão das CCBs</div>
-        <p id="c11">—</p>
-      </div>
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.2 — Liquidação do Principal</div>
-        <p id="c12">—</p>
-      </div>
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.3 — Juros Remuneratórios</div>
-        <p id="c13">—</p>
-      </div>
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.4 — Parcela Mensal de Juros</div>
-        <p id="c14">—</p>
-      </div>
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.5 — Cronograma de Séries e Vencimentos</div>
-        <p style="margin-bottom:4px; font-size:13px; color:#3A4A5E">Durante toda a vigência da operação, o CONTRATANTE pagará mensalmente a parcela de juros estipulada e realizará a amortização anual do principal conforme cronograma:</p>
-        <table class="series-table">
-          <thead>
-            <tr>
-              <th>Série</th>
-              <th>Valor do Principal</th>
-              <th>Vencimento</th>
-              <th>Parcela Mensal de Juros</th>
-              <th>Pagamento no Vencimento</th>
-            </tr>
-          </thead>
-          <tbody id="seriesBody"></tbody>
-        </table>
-      </div>
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.6 — Garantia</div>
-        <p>A operação será garantida mediante <strong>cessão fiduciária de recebíveis</strong> da carteira de contratos do CONTRATANTE, no valor estimado de <strong id="c16_garantia">—</strong>, com LTV de <strong id="c16_ltv">—</strong>, condicionada à apresentação de laudo técnico e parecer jurídico aprovados pela CONTRATADA.</p>
-      </div>
-
-      <div class="clausula">
-        <div class="clausula-num">Art. 1.7 — Validade da Proposta</div>
-        <p>Esta Proposta Indicativa tem validade de <strong>10 (dez) dias corridos</strong> a partir da data de emissão (<strong id="c17_data">—</strong>). Após esse período, será necessária nova análise de crédito. Os valores apresentados são estimativos e passíveis de alteração após emissão de laudo e parecer jurídico, não possuindo valor legal até assinatura do contrato definitivo.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- CRONOGRAMA -->
-  <div class="sec-label">Cronograma de Pagamentos</div>
-  <div class="table-card">
-    <div class="table-topbar">
+  <div class="sl">Cronograma de Pagamentos</div>
+  <div class="tcard">
+    <div class="ttop">
       <h3>Extrato de Simulação — Operação de Recebíveis</h3>
-      <div class="toggle-group">
-        <button class="tog-btn active" onclick="setView('mensal',this)">Mensal</button>
-        <button class="tog-btn" onclick="setView('anual',this)">Anual</button>
+      <div class="tg">
+        <button class="tb2 active" onclick="setVw('m',this)">Mensal</button>
+        <button class="tb2" onclick="setVw('a',this)">Anual</button>
       </div>
     </div>
-    <div class="table-scroll">
-      <table class="main-table">
-        <thead id="tHead"></thead>
-        <tbody id="tBody"></tbody>
-      </table>
-    </div>
-    <div class="table-footer">
-      ⚠ Este simulador gera projeções baseadas nos dados fornecidos. Os resultados são apenas estimativas e não substituem análise formal da proposta, não possuindo valor legal. &nbsp;|&nbsp;
-      Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; Versão 2.0
-    </div>
+    <div class="tscroll"><table class="mt"><thead id="mTh"></thead><tbody id="mTb"></tbody></table></div>
+    <div class="tfoot">⚠ Resultados são estimativas sem valor legal. &nbsp;|&nbsp; Finance X Capital — CNPJ 49.185.230/0001-61 &nbsp;|&nbsp; v3.0</div>
   </div>
 
-  <!-- ACTIONS -->
-  <div class="actions">
-    <button class="btn-primary" onclick="window.print()">⬇ Imprimir / Salvar PDF</button>
-    <button class="btn-secondary" onclick="resetar()">↺ Redefinir Valores</button>
+  <div class="sl">Enviar Simulação</div>
+  <div class="sp">
+    <h3>📤 Registrar e Enviar esta Simulação</h3>
+    <p>A simulação será registrada com sua tag de indicador, salva na planilha de controle e enviada por e-mail para a equipe Finance X Capital via Gmail.</p>
+    <div class="sa">
+      <button class="btn-s p" id="btnEnv" onclick="enviar()">✉ Enviar Simulação</button>
+      <button class="btn-s o" onclick="window.print()">🖨 Imprimir / PDF</button>
+      <button class="btn-s o" onclick="resetar()">↺ Nova Simulação</button>
+    </div>
+    <div class="ss-msg" id="ssMsg"></div>
   </div>
 
-</div><!-- /page -->
+</div>
 
-<!-- FOOTER -->
 <footer>
-  <div>
-    <div class="f-brand">Finance <span>X</span> Capital</div>
-    <p style="margin-top:4px">Soluções de Crédito, Investimento e Banco Digital</p>
-  </div>
-  <div style="text-align:right">
-    <div class="f-cnpj">CNPJ 49.185.230/0001-61</div>
-    <p style="margin-top:4px">© 2025 Finance X Group. Todos os direitos reservados.</p>
-  </div>
+  <div><div class="fb">Finance <em>X</em> Capital</div><p style="margin-top:4px">Soluções de Crédito, Investimento e Banco Digital</p></div>
+  <div style="text-align:right"><p>CNPJ 49.185.230/0001-61</p><p style="margin-top:4px">© 2025 Finance X Group. Todos os direitos reservados.</p></div>
 </footer>
 
 <script>
-  // ── Date display ──
-  const hoje = new Date();
-  const dtOpts = {day:'2-digit', month:'long', year:'numeric'};
-  document.getElementById('topDate').textContent = hoje.toLocaleDateString('pt-BR', dtOpts);
-  document.getElementById('c17_data').textContent = hoje.toLocaleDateString('pt-BR', dtOpts);
+// ════════════════════════════════════════════════════
+//  ⚙️  ÚNICA CONFIGURAÇÃO NECESSÁRIA
+//  Cole aqui a URL gerada pelo Google Apps Script
+// ════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOkaYjHPSFu9NgY_-H7Ves2A7EN2Dg5mBqFrSqgeZPDp_Lv9lhDm5R_9yzM7u7RIFz/exec';
 
-  let viewMode = 'mensal';
-  let rowsMensal = [], rowsAnual = [];
+// ════════════════════════════════════════════════════
+//  ESTADO
+// ════════════════════════════════════════════════════
+let ind = null, nSer = 4, vwMode = 'm';
+let rowsM = [], rowsA = [];
+let V = { con: 14000000, cre: 2800000 };
 
-  const fmt  = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  const fmtP = v => v.toFixed(2).replace('.',',') + '%';
-  const fmtM = v => v >= 1e6 ? 'R$ ' + (v/1e6).toFixed(1).replace('.',',') + 'M'
-                             : v >= 1e3 ? 'R$ ' + (v/1e3).toFixed(0) + 'k' : fmt(v);
+const hoje = new Date();
+const dtF  = {day:'2-digit',month:'long',year:'numeric'};
+g('tDate').textContent = hoje.toLocaleDateString('pt-BR', dtF);
+g('c7d').textContent   = hoje.toLocaleDateString('pt-BR', dtF);
 
-  const letras = ['A','B','C','D'];
-  const numWords = ['zero','uma','duas','três','quatro'];
+// Mostra banner se não configurado
+if(APPS_SCRIPT_URL === 'SUA_URL_AQUI') g('cfgBanner').style.display = 'block';
 
-  function upPrazo()  { document.getElementById('prazoDisplay').textContent  = document.getElementById('prazo').value + ' meses'; }
-  function upTaxa()   { document.getElementById('taxaDisplay').textContent   = fmtP(parseFloat(document.getElementById('taxa').value)); }
-  function upCusto()  { document.getElementById('custoDisplay').textContent  = fmtP(parseFloat(document.getElementById('custo').value)); }
+// ════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════
+function g(id){ return document.getElementById(id); }
+function s(id,h){ const e=g(id); if(e) e.innerHTML=h; }
+const fmt  = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const fmtP = v => v.toFixed(2).replace('.',',')+' %';
+const fmtS = v => v>=1e6?'R$ '+(v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'M':v>=1e3?'R$ '+(v/1e3).toFixed(0)+'k':fmt(v);
+const fmtI = v => v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const parseR = str => parseFloat(str.replace(/\./g,'').replace(',','.'))||0;
+const letras = ['A','B','C','D'];
+const nExtM  = ['zero','um','dois','três','quatro'];
 
-  function resetar() {
-    document.getElementById('contratos').value = 14000000;
-    document.getElementById('credito').value   = 2800000;
-    document.getElementById('prazo').value     = 48;
-    document.getElementById('taxa').value      = 2.76;
-    document.getElementById('custo').value     = 8.38;
-    document.getElementById('modelo').value    = 'juros_amort';
-    upPrazo(); upTaxa(); upCusto(); calcular();
+function mascDoc(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length<=11) v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/,'$1.$2.$3-$4');
+  else v=v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/,'$1.$2.$3/$4-$5');
+  el.value=v;
+}
+
+// ════════════════════════════════════════════════════
+//  AUTH
+// ════════════════════════════════════════════════════
+function swTab(t,btn){
+  g('tLogin').style.display = t==='login'?'block':'none';
+  g('tCad').style.display   = t==='cad'?'block':'none';
+  document.querySelectorAll('.modal-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function gerarCod(){ return 'FX-'+Math.floor(1000+Math.random()*9000); }
+
+function doCad(){
+  const nome=g('cNome').value.trim(), wh=g('cWhats').value.trim(), em=g('cEmail').value.trim();
+  if(!nome||!wh||!em){ g('errCad').style.display='block'; return; }
+  g('errCad').style.display='none';
+  const cod=gerarCod();
+  const novoInd={nome,whats:wh,email:em,doc:g('cDoc').value.trim(),cidade:g('cCidade').value.trim(),codigo:cod,data:hoje.toLocaleDateString('pt-BR')};
+  salvarLocal(novoInd);
+  enviarParaSheets({tipo:'novo_indicador',...novoInd});
+  entrar(novoInd);
+  alert('✅ Cadastro realizado!\n\nSeu código de indicador:\n\n' + cod + '\n\nGuarde este código para próximos acessos.');
+}
+
+function doLogin(){
+  const cod=g('lCod').value.trim().toUpperCase(), nome=g('lNome').value.trim();
+  if(!cod||!nome){ g('errLogin').style.display='block'; return; }
+  g('errLogin').style.display='none';
+  let lista=JSON.parse(localStorage.getItem('fx_inds')||'[]');
+  let found=lista.find(i=>i.codigo===cod);
+  if(!found){
+    found={nome,codigo:cod,data:hoje.toLocaleDateString('pt-BR')};
+    salvarLocal(found);
   }
+  entrar(found);
+}
 
-  function setView(mode, btn) {
-    viewMode = mode;
-    document.querySelectorAll('.tog-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderTable();
-  }
+function salvarLocal(i){
+  let lista=JSON.parse(localStorage.getItem('fx_inds')||'[]');
+  if(!lista.find(x=>x.codigo===i.codigo)) lista.push(i);
+  localStorage.setItem('fx_inds',JSON.stringify(lista));
+}
 
-  function calcular() {
-    const credito   = parseFloat(document.getElementById('credito').value)   || 2800000;
-    const contratos = parseFloat(document.getElementById('contratos').value) || 14000000;
-    const prazo     = parseInt(document.getElementById('prazo').value);
-    const taxa      = parseFloat(document.getElementById('taxa').value) / 100;
-    const custoPct  = parseFloat(document.getElementById('custo').value) / 100;
-    const modelo    = document.getElementById('modelo').value;
+function entrar(i){
+  ind=i;
+  g('modalOv').style.display='none';
+  const ib=g('indBar'); ib.style.display='flex';
+  g('indAv').textContent=i.nome.charAt(0).toUpperCase();
+  g('indNm').textContent=i.nome;
+  g('indCd').textContent='🏷 '+i.codigo;
+}
 
-    const custoVal     = credito * custoPct;
-    const creditoLiq   = credito - custoVal;
-    const ltv          = (credito / contratos * 100);
-    const numSeries    = prazo / 12;
-    const amortAnual   = credito / numSeries;
-    const jurosMensal  = credito * taxa;  // fixo sobre principal total
-    const cet          = taxa + (custoPct / prazo);
-    const cetAnual     = (Math.pow(1 + cet, 12) - 1) * 100;
+function sair(){ if(confirm('Deseja sair?')){ ind=null; g('modalOv').style.display='flex'; g('indBar').style.display='none'; } }
 
-    // Hero pills
-    document.getElementById('h_contratos').textContent = fmtM(contratos);
-    document.getElementById('h_credito').textContent   = fmtM(credito);
-    document.getElementById('h_ltv').textContent       = ltv.toFixed(1) + '%';
-    document.getElementById('h_prazo').textContent     = prazo + 'm';
+// ════════════════════════════════════════════════════
+//  CONTROLES
+// ════════════════════════════════════════════════════
+function pi(f){ const id=f==='con'?'iCon':'iCre'; V[f]=parseR(g(id).value); g(id).value=fmtI(V[f]); }
+function uTx(){ g('dTx').textContent=fmtP(parseFloat(g('rTx').value)); }
+function uCu(){ g('dCu').textContent=fmtP(parseFloat(g('rCu').value)); }
+function setSer(n,btn){ nSer=n; document.querySelectorAll('.sb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calc(); }
+function setVw(m,btn){ vwMode=m; document.querySelectorAll('.tb2').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderT(); }
 
-    rowsMensal = []; rowsAnual = [];
+function resetar(){
+  V={con:14000000,cre:2800000};
+  g('iCon').value=fmtI(14000000); g('iCre').value=fmtI(2800000);
+  g('rTx').value=2.76; g('rCu').value=8.38; g('mdl').value='ja';
+  ['cliNm','cliDoc','cliSeg','cliCid'].forEach(id=>g(id).value='');
+  nSer=4; document.querySelectorAll('.sb').forEach((b,i)=>b.classList.toggle('active',i===3));
+  uTx(); uCu(); calc();
+  g('ssMsg').style.display='none';
+}
 
-    if (modelo === 'juros_amort') {
-      let saldo = credito; let totalJuros = 0;
-      for (let m = 1; m <= prazo; m++) {
-        const isA  = (m % 12 === 0);
-        const amrt = isA ? amortAnual : 0;
-        const jrs  = jurosMensal;
-        const tot  = jrs + amrt;
-        totalJuros += jrs;
-        saldo -= amrt; if(saldo < 0) saldo = 0;
-        const dv = new Date(hoje); dv.setMonth(dv.getMonth() + m);
-        rowsMensal.push({ p:m, data:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:tot, s:saldo, isA });
-      }
-      for (let an = 1; an <= numSeries; an++) {
-        let sJ=0,sA=0,sT=0;
-        for (let m=(an-1)*12; m<an*12; m++) { sJ+=rowsMensal[m].j; sA+=rowsMensal[m].a; sT+=rowsMensal[m].t; }
-        rowsAnual.push({ ano:an, j:sJ, a:sA, t:sT, s:rowsMensal[an*12-1].s });
-      }
+// ════════════════════════════════════════════════════
+//  CÁLCULO
+// ════════════════════════════════════════════════════
+function calc(){
+  const cre=V.cre||2800000, con=V.con||14000000;
+  const tx=parseFloat(g('rTx').value)/100, cu=parseFloat(g('rCu').value)/100;
+  const mdl=g('mdl').value, prazo=nSer*12;
+  const cuV=cre*cu, liq=cre-cuV, ltv=cre/con*100;
+  const amA=cre/nSer, jm=cre*tx;
+  const cet=tx+(cu/prazo), cetA=(Math.pow(1+cet,12)-1)*100;
 
-      // Summary
-      set('s_bruto',    fmt(credito));
-      set('s_custo_val',fmt(custoVal));
-      set('s_custo_sub',fmtP(custoPct*100) + ' sobre crédito');
-      set('s_liquido',  fmt(creditoLiq));
-      set('s_parcela',  fmt(jurosMensal));
-      set('s_parcela_sub','juros fixos / mês');
-      set('s_amort',    fmt(amortAnual));
-      set('s_amort_sub',numSeries + ' parcelas anuais');
-      set('s_tjuros',   fmt(totalJuros));
-      set('s_total',    fmt(credito + totalJuros + custoVal));
-      set('s_ltv',      ltv.toFixed(2) + '%');
-      set('s_cet',      fmtP(cet * 100) + ' a.m.');
-      set('s_cet_sub',  fmtP(cetAnual) + ' a.a.');
+  s('hC',fmtS(con)); s('hCr',fmtS(cre));
+  s('hL',ltv.toFixed(1)+'%');
+  s('hS',nSer+(nSer===1?' série':' séries'));
 
-      // Tag
-      document.getElementById('tag_modelo').textContent = 'Juros Mensais + Amort. Anual';
+  rowsM=[]; rowsA=[];
 
-      // Cláusulas
-      set('c11', `Por meio do presente Contrato, a CONTRATADA compromete-se a encomendar e endossar, através de instituição financeira parceira, <strong>${numSeries} (${numWords[numSeries]}) Cédula(s) de Crédito Bancário ("CCB")</strong>, no valor de <strong>${fmt(amortAnual)}</strong> cada, totalizando <strong>${fmt(credito)}</strong>, emitidas na modalidade <strong>Capital de Giro — Operação de Recebíveis</strong>, com posterior aditivo de Termo de Garantia Colateral, para distribuição e monetização junto a agentes autônomos de investimento.`);
-
-      set('c12', `O valor total contratado será liquidado pelo CONTRATANTE em <strong>${numSeries} (${numWords[numSeries]}) parcela(s) anuais</strong> iguais de principal, no valor de <strong>${fmt(amortAnual)}</strong> cada, com vencimentos em ${Array.from({length:numSeries},(_,i)=>'<strong>'+(i+1)*12+' meses</strong>').join(', ')}, respectivamente.`);
-
-      set('c13', `Sobre o valor total da operação incidirão <strong>juros remuneratórios fixos de ${fmtP(taxa*100)} ao mês</strong>, calculados sobre o valor total contratado de <strong>${fmt(credito)}</strong>, sendo devidos mensalmente durante toda a vigência da operação, independentemente da amortização parcial do principal.`);
-
-      set('c14', `Em razão da taxa prevista no artigo anterior, o CONTRATANTE obriga-se ao pagamento de <strong>parcela mensal fixa de juros no valor de ${fmt(jurosMensal)}</strong>, com vencimento todo mês, a partir da emissão da operação, até o encerramento do contrato. <span style="color:var(--muted); font-size:12px">(Cálculo: ${fmt(credito)} × ${fmtP(taxa*100)} = ${fmt(jurosMensal)}/mês)</span>`);
-
-      // Series table
-      let html = '';
-      for (let i=0; i<numSeries; i++) {
-        html += `<tr>
-          <td><strong>${letras[i]}</strong></td>
-          <td><strong>${fmt(amortAnual)}</strong></td>
-          <td>${(i+1)*12} meses</td>
-          <td>${fmt(jurosMensal)}/mês</td>
-          <td><strong>${fmt(amortAnual)}</strong></td>
-        </tr>`;
-      }
-      document.getElementById('seriesBody').innerHTML = html;
-
-    } else {
-      // PRICE
-      const pmto = credito * (taxa * Math.pow(1+taxa,prazo)) / (Math.pow(1+taxa,prazo)-1);
-      let saldo = credito; let totalJuros = 0;
-      for (let m=1; m<=prazo; m++) {
-        const jrs  = saldo * taxa;
-        const amrt = pmto - jrs;
-        totalJuros += jrs; saldo -= amrt; if(saldo<0.01) saldo=0;
-        const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
-        rowsMensal.push({ p:m, data:dv.toLocaleDateString('pt-BR'), j:jrs, a:amrt, t:pmto, s:saldo, isA:false });
-      }
-      for (let an=1; an<=prazo/12; an++) {
-        let sJ=0,sA=0,sT=0;
-        for(let m=(an-1)*12; m<an*12; m++){ sJ+=rowsMensal[m].j; sA+=rowsMensal[m].a; sT+=rowsMensal[m].t; }
-        rowsAnual.push({ ano:an, j:sJ, a:sA, t:sT, s:rowsMensal[an*12-1].s });
-      }
-
-      set('s_bruto',    fmt(credito));
-      set('s_custo_val',fmt(custoVal));
-      set('s_custo_sub',fmtP(custoPct*100));
-      set('s_liquido',  fmt(creditoLiq));
-      set('s_parcela',  fmt(pmto));
-      set('s_parcela_sub','parcela fixa PRICE');
-      set('s_amort',    '—');
-      set('s_amort_sub','amortização embutida');
-      set('s_tjuros',   fmt(totalJuros));
-      set('s_total',    fmt(credito + totalJuros + custoVal));
-      set('s_ltv',      ltv.toFixed(2) + '%');
-      set('s_cet',      fmtP(cet*100) + ' a.m.');
-      set('s_cet_sub',  fmtP(cetAnual) + ' a.a.');
-
-      document.getElementById('tag_modelo').textContent = 'Tabela PRICE';
-      set('c11', `Emissão via <strong>Tabela PRICE</strong> — ${prazo} parcelas mensais fixas de <strong>${fmt(pmto)}</strong>, totalizando principal de <strong>${fmt(credito)}</strong>.`);
-      set('c12', `Amortização mensal embutida na prestação fixa. O saldo devedor decresce progressivamente ao longo do prazo.`);
-      set('c13', `Juros de <strong>${fmtP(taxa*100)} a.m.</strong> incidentes sobre o saldo devedor remanescente de cada período.`);
-      set('c14', `Parcela fixa mensal de <strong>${fmt(pmto)}</strong> (PRICE).`);
-      document.getElementById('seriesBody').innerHTML = `<tr><td colspan="5" style="color:var(--muted); font-style:italic; padding:12px 14px">Modalidade PRICE — estrutura sem séries anuais de amortização.</td></tr>`;
+  if(mdl==='ja'){
+    let sal=cre, tj=0;
+    for(let m=1;m<=prazo;m++){
+      const isA=(m%12===0), amrt=isA?amA:0;
+      tj+=jm; sal-=amrt; if(sal<0)sal=0;
+      const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
+      rowsM.push({p:m,dt:dv.toLocaleDateString('pt-BR'),j:jm,a:amrt,t:jm+amrt,s:sal,isA});
     }
-
-    // Guarantee
-    const garantia = contratos;
-    set('c16_garantia', fmt(garantia));
-    set('c16_ltv', ltv.toFixed(2) + '%');
-
-    renderTable();
-  }
-
-  function set(id, html) {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = html;
-  }
-
-  function renderTable() {
-    const thead = document.getElementById('tHead');
-    const tbody = document.getElementById('tBody');
-
-    if (viewMode === 'mensal') {
-      thead.innerHTML = `<tr>
-        <th style="text-align:left">Parcela</th>
-        <th>Data</th>
-        <th>Juros</th>
-        <th>Amortização</th>
-        <th>Total da Parcela</th>
-        <th>Saldo Devedor</th>
-      </tr>`;
-      tbody.innerHTML = rowsMensal.map(r => `
-        <tr class="${r.isA ? 'row-amort' : ''}">
-          <td>${String(r.p).padStart(3,'0')}${r.isA ? '<span class="badge-amort">AMORT</span>' : ''}</td>
-          <td style="text-align:right">${r.data}</td>
-          <td class="c-juros">${fmt(r.j)}</td>
-          <td class="c-amort">${r.a > 0 ? fmt(r.a) : '<span style="color:#CBD2DC">—</span>'}</td>
-          <td class="c-total">${fmt(r.t)}</td>
-          <td class="c-saldo">${fmt(r.s)}</td>
-        </tr>`).join('');
-    } else {
-      thead.innerHTML = `<tr>
-        <th style="text-align:left">Ano</th>
-        <th>Juros Acumulados</th>
-        <th>Amortização</th>
-        <th>Total Pago</th>
-        <th>Saldo Devedor</th>
-      </tr>`;
-      tbody.innerHTML = rowsAnual.map(r => `
-        <tr class="row-amort">
-          <td>Ano ${r.ano}</td>
-          <td class="c-juros">${fmt(r.j)}</td>
-          <td class="c-amort">${fmt(r.a)}</td>
-          <td class="c-total">${fmt(r.t)}</td>
-          <td class="c-saldo">${fmt(r.s)}</td>
-        </tr>`).join('');
+    for(let an=1;an<=nSer;an++){
+      let sJ=0,sA=0,sT=0;
+      for(let m=(an-1)*12;m<an*12;m++){sJ+=rowsM[m].j;sA+=rowsM[m].a;sT+=rowsM[m].t;}
+      rowsA.push({an,j:sJ,a:sA,t:sT,s:rowsM[an*12-1].s});
     }
+    s('sBr',fmt(cre)); s('sCu',fmt(cuV)); s('sCuS',fmtP(cu*100)+' sobre o crédito');
+    s('sLi',fmt(liq)); s('sPa',fmt(jm)); s('sPaS','juros fixos mensais');
+    s('sCb',fmt(amA)); s('sCbS',nSer+' CCB'+(nSer>1?'s':'')+' emitida'+(nSer>1?'s':''));
+    s('sAm',fmt(amA)); s('sAmS',nSer+' parcela'+(nSer>1?'s':'')+' anuais');
+    s('sTj',fmt(tj)); s('sTp',fmt(cre+tj+cuV));
+    s('sLv',ltv.toFixed(2)+'%'); s('sCe',fmtP(cet*100)+' a.m.'); s('sCeS',fmtP(cetA)+' a.a.');
+    s('tagM','Juros Mensais + Amort. Anual');
+    s('c1',`A CONTRATADA compromete-se a encomendar <strong>${nSer} (${nExtM[nSer]}) CCB${nSer>1?'s':''}</strong> no valor de <strong>${fmt(amA)}</strong> cada, totalizando <strong>${fmt(cre)}</strong>, na modalidade <strong>Capital de Giro — Operação de Recebíveis</strong>.`);
+    s('c2',`Liquidação em <strong>${nSer} parcela${nSer>1?'s':''} anuais</strong> de <strong>${fmt(amA)}</strong>, com vencimentos em ${Array.from({length:nSer},(_,i)=>'<strong>'+(i+1)*12+' meses</strong>').join(', ')}.`);
+    s('c3',`Juros fixos de <strong>${fmtP(tx*100)} ao mês</strong> (${fmtP(tx*12*100)} a.a.) calculados sobre <strong>${fmt(cre)}</strong>, devidos mensalmente, independente da amortização.`);
+    s('c4',`Parcela mensal fixa de juros: <strong>${fmt(jm)}</strong>. <span style="color:var(--muted);font-size:11px">(${fmt(cre)} × ${fmtP(tx*100)} = ${fmt(jm)}/mês)</span>`);
+    let h='';
+    for(let i=0;i<nSer;i++) h+=`<tr><td><strong>${letras[i]}</strong></td><td>1 CCB</td><td>${fmt(amA)}</td><td><strong>${fmt(amA)}</strong></td><td>${(i+1)*12} meses</td><td>${fmt(jm)}/mês</td><td><strong>${fmt(amA)}</strong></td></tr>`;
+    s('sTb',h);
+  } else {
+    const pmto=cre*(tx*Math.pow(1+tx,prazo))/(Math.pow(1+tx,prazo)-1);
+    let sal=cre, tj=0;
+    for(let m=1;m<=prazo;m++){
+      const jrs=sal*tx, amrt=pmto-jrs; tj+=jrs; sal-=amrt; if(sal<0.01)sal=0;
+      const dv=new Date(hoje); dv.setMonth(dv.getMonth()+m);
+      rowsM.push({p:m,dt:dv.toLocaleDateString('pt-BR'),j:jrs,a:amrt,t:pmto,s:sal,isA:false});
+    }
+    for(let an=1;an<=nSer;an++){
+      let sJ=0,sA=0,sT=0;
+      for(let m=(an-1)*12;m<an*12;m++){sJ+=rowsM[m].j;sA+=rowsM[m].a;sT+=rowsM[m].t;}
+      rowsA.push({an,j:sJ,a:sA,t:sT,s:rowsM[an*12-1].s});
+    }
+    s('sBr',fmt(cre)); s('sCu',fmt(cuV)); s('sCuS',fmtP(cu*100));
+    s('sLi',fmt(liq)); s('sPa',fmt(pmto)); s('sPaS','parcela fixa PRICE');
+    s('sCb',fmt(cre/nSer)); s('sCbS',nSer+' CCBs');
+    s('sAm','—'); s('sAmS','embutida na parcela');
+    s('sTj',fmt(tj)); s('sTp',fmt(cre+tj+cuV));
+    s('sLv',ltv.toFixed(2)+'%'); s('sCe',fmtP(cet*100)+' a.m.'); s('sCeS',fmtP(cetA)+' a.a.');
+    s('tagM','Tabela PRICE');
+    s('c1',`Emissão via <strong>PRICE</strong> — ${prazo} parcelas fixas de <strong>${fmt(pmto)}</strong>, principal <strong>${fmt(cre)}</strong> em <strong>${nSer} CCBs</strong>.`);
+    s('c2','Amortização mensal embutida na prestação fixa.');
+    s('c3',`Juros de <strong>${fmtP(tx*100)} a.m.</strong> sobre o saldo devedor remanescente.`);
+    s('c4',`Parcela fixa: <strong>${fmt(pmto)}</strong>/mês.`);
+    s('sTb',`<tr><td colspan="7" style="color:var(--muted);font-style:italic;padding:12px">Modalidade PRICE — sem séries anuais separadas.</td></tr>`);
   }
+  s('c6g',fmt(con)); s('c6l',ltv.toFixed(2)+'%');
+  renderT();
+}
 
-  // Init
-  calcular();
+function renderT(){
+  const th=g('mTh'), tb=g('mTb');
+  if(vwMode==='m'){
+    th.innerHTML=`<tr><th style="text-align:left">Parcela</th><th>Data</th><th>Juros</th><th>Amortização</th><th>Total</th><th>Saldo Devedor</th></tr>`;
+    tb.innerHTML=rowsM.map(r=>`<tr class="${r.isA?'ra':''}"><td>${String(r.p).padStart(3,'0')}${r.isA?'<span class="ba">AMORT</span>':''}</td><td style="text-align:right">${r.dt}</td><td class="cj">${fmt(r.j)}</td><td class="ca">${r.a>0?fmt(r.a):'<span style="color:#CBD2DC">—</span>'}</td><td class="ct">${fmt(r.t)}</td><td>${fmt(r.s)}</td></tr>`).join('');
+  } else {
+    th.innerHTML=`<tr><th style="text-align:left">Série / Ano</th><th>Juros Acumulados</th><th>Amortização</th><th>Total Pago</th><th>Saldo Devedor</th></tr>`;
+    tb.innerHTML=rowsA.map(r=>`<tr class="ra"><td>Série ${letras[r.an-1]} — Ano ${r.an}</td><td class="cj">${fmt(r.j)}</td><td class="ca">${fmt(r.a)}</td><td class="ct">${fmt(r.t)}</td><td>${fmt(r.s)}</td></tr>`).join('');
+  }
+}
+
+// ════════════════════════════════════════════════════
+//  ENVIO — 100% via Google Apps Script
+// ════════════════════════════════════════════════════
+function montarPayload(){
+  const tx=parseFloat(g('rTx').value), cu=parseFloat(g('rCu').value);
+  return {
+    tipo:             'simulacao',
+    data:             hoje.toLocaleDateString('pt-BR'),
+    indicador_nome:   ind?.nome   || '—',
+    indicador_codigo: ind?.codigo || '—',
+    indicador_whats:  ind?.whats  || '—',
+    indicador_email:  ind?.email  || '—',
+    cliente_nome:     g('cliNm').value  || '—',
+    cliente_doc:      g('cliDoc').value || '—',
+    cliente_segmento: g('cliSeg').value || '—',
+    cliente_cidade:   g('cliCid').value || '—',
+    contratos:        fmt(V.con),
+    credito:          fmt(V.cre),
+    custo_pct:        fmtP(cu),
+    custo_val:        fmt(V.cre*(cu/100)),
+    credito_liquido:  fmt(V.cre-V.cre*(cu/100)),
+    ltv:              (V.cre/V.con*100).toFixed(2)+'%',
+    series:           nSer,
+    taxa_mensal:      fmtP(tx),
+    parcela_juros:    fmt(V.cre*(tx/100)),
+    amort_anual:      fmt(V.cre/nSer),
+    modelo:           g('mdl').value==='ja'?'Juros Mensais + Amort. Anual':'Tabela PRICE'
+  };
+}
+
+async function enviarParaSheets(dados){
+  if(APPS_SCRIPT_URL==='SUA_URL_AQUI') return false;
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(dados)});
+    return true;
+  }catch(e){ console.error('Apps Script:',e); return false; }
+}
+
+async function enviar(){
+  const btn=g('btnEnv'), msg=g('ssMsg');
+  if(!g('cliNm').value.trim()){
+    msg.className='ss-msg er'; msg.style.display='block';
+    msg.textContent='⚠ Preencha o nome do cliente antes de enviar.'; return;
+  }
+  if(APPS_SCRIPT_URL==='SUA_URL_AQUI'){
+    msg.className='ss-msg er'; msg.style.display='block';
+    msg.textContent='⚙️ Configure a URL do Google Apps Script no código para ativar o envio.'; return;
+  }
+  btn.disabled=true; btn.textContent='Enviando...'; msg.style.display='none';
+  const ok = await enviarParaSheets(montarPayload());
+  btn.disabled=false; btn.textContent='✉ Enviar Simulação';
+  if(ok){
+    msg.className='ss-msg ok'; msg.style.display='block';
+    msg.textContent='✅ Simulação enviada! E-mail disparado e planilha atualizada.';
+  } else {
+    msg.className='ss-msg er'; msg.style.display='block';
+    msg.textContent='❌ Falha ao enviar. Verifique a URL do Apps Script.';
+  }
+}
+
+uTx(); uCu(); calc();
 </script>
 </body>
 </html>
